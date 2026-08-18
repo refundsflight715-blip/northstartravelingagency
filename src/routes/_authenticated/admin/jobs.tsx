@@ -101,8 +101,8 @@ function AdminJobsPage() {
           description: job.description,
           requirements: job.requirements,
           salary: job.salary ?? "",
-          job_type: job.job_type ?? "full-time",
-          status: job.status ?? "draft",
+          job_type: (job.job_type as AdminJobFormValues["job_type"]) ?? "full-time",
+          status: (job.status as AdminJobFormValues["status"]) ?? "draft",
           featured: job.featured ?? false,
           expires_at: job.expires_at ?? "",
         });
