@@ -127,6 +127,52 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Career portfolios */}
+      <section className="bg-muted/50 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold text-foreground">Career portfolios</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Specialised tracks across aviation, security, courier and logistics — with partner
+              employers on multiple continents.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {portfolios.map((p) => (
+              <Link
+                key={p.slug}
+                to="/portfolios"
+                hash={p.slug}
+                className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+              >
+                <img
+                  src={p.image}
+                  alt={`${p.title} professionals at work`}
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.tagline}</p>
+                  <p className="mt-3 text-xs font-medium uppercase tracking-wide text-primary">
+                    {p.regions.join(" · ")}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button variant="outline" asChild>
+              <Link to="/portfolios">Explore all portfolios</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Featured jobs */}
       <section className="bg-muted/50 py-16 md:py-24">
         <div className="container mx-auto px-4">
