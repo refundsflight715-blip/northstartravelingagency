@@ -48,6 +48,13 @@ function HomePage() {
       <section className="relative overflow-hidden bg-primary py-20 text-primary-foreground md:py-28">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
+            <img
+              src={logoAsset.url}
+              alt="NorthStar Traveling Agency logo"
+              width={176}
+              height={176}
+              className="mx-auto mb-8 h-32 w-32 rounded-full object-cover shadow-lg ring-4 ring-primary-foreground/30 md:h-44 md:w-44"
+            />
             <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
               Your gateway to overseas careers
             </h1>
