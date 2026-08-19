@@ -174,7 +174,7 @@ function HomePage() {
       </section>
 
       {/* Featured jobs */}
-      <section className="bg-muted/50 py-16 md:py-24">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
