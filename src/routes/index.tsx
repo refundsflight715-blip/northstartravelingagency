@@ -5,6 +5,8 @@ import { ArrowRight, Globe, Briefcase, FileText, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
+import { portfolios } from "@/lib/portfolios";
+import logoAsset from "@/assets/northstar-logo.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
   queryKey: ["featured-jobs"],

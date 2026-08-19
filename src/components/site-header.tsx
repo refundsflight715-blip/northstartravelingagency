@@ -25,6 +25,7 @@ export function SiteHeader() {
   const navItems = [
     { label: "Home", to: "/" },
     { label: "Jobs", to: "/jobs" },
+    { label: "Portfolios", to: "/portfolios" },
     { label: "Services", to: "/services" },
     { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
