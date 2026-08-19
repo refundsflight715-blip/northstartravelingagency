@@ -15,6 +15,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as JobsRouteImport } from './routes/jobs'
+import { Route as PortfoliosRouteImport } from './routes/portfolios'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
@@ -53,6 +54,11 @@ const ContactRoute = ContactRouteImport.update({
 const JobsRoute = JobsRouteImport.update({
   id: '/jobs',
   path: '/jobs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PortfoliosRoute = PortfoliosRouteImport.update({
+  id: '/portfolios',
+  path: '/portfolios',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/jobs': typeof JobsRouteWithChildren
+  '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/jobs'
+    | '/portfolios'
     | '/services'
     | '/admin'
     | '/dashboard'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/jobs'
+    | '/portfolios'
     | '/services'
     | '/dashboard'
     | '/profile'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/jobs'
+    | '/portfolios'
     | '/services'
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
@@ -220,6 +232,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   JobsRoute: typeof JobsRouteWithChildren
+  PortfoliosRoute: typeof PortfoliosRoute
   ServicesRoute: typeof ServicesRoute
 }
 
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       path: '/jobs'
       fullPath: '/jobs'
       preLoaderRoute: typeof JobsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/portfolios': {
+      id: '/portfolios'
+      path: '/portfolios'
+      fullPath: '/portfolios'
+      preLoaderRoute: typeof PortfoliosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -403,6 +423,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   JobsRoute: JobsRouteWithChildren,
+  PortfoliosRoute: PortfoliosRoute,
   ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport

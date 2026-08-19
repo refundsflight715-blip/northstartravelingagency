@@ -5,6 +5,8 @@ import { ArrowRight, Globe, Briefcase, FileText, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
+import { portfolios } from "@/lib/portfolios";
+import logoAsset from "@/assets/northstar-logo.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
   queryKey: ["featured-jobs"],
@@ -46,6 +48,13 @@ function HomePage() {
       <section className="relative overflow-hidden bg-primary py-20 text-primary-foreground md:py-28">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
+            <img
+              src={logoAsset.url}
+              alt="NorthStar Traveling Agency logo"
+              width={176}
+              height={176}
+              className="mx-auto mb-8 h-32 w-32 rounded-full object-cover shadow-lg ring-4 ring-primary-foreground/30 md:h-44 md:w-44"
+            />
             <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
               Your gateway to overseas careers
             </h1>
@@ -118,8 +127,54 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Featured jobs */}
+      {/* Career portfolios */}
       <section className="bg-muted/50 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold text-foreground">Career portfolios</h2>
+            <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
+              Specialised tracks across aviation, security, courier and logistics — with partner
+              employers on multiple continents.
+            </p>
+          </div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {portfolios.map((p) => (
+              <Link
+                key={p.slug}
+                to="/portfolios"
+                hash={p.slug}
+                className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md"
+              >
+                <img
+                  src={p.image}
+                  alt={`${p.title} professionals at work`}
+                  loading="lazy"
+                  width={1024}
+                  height={768}
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="p-5">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-primary">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{p.tagline}</p>
+                  <p className="mt-3 text-xs font-medium uppercase tracking-wide text-primary">
+                    {p.regions.join(" · ")}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-10 text-center">
+            <Button variant="outline" asChild>
+              <Link to="/portfolios">Explore all portfolios</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured jobs */}
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div>
