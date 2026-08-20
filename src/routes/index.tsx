@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
 import { portfolios } from "@/lib/portfolios";
-import logoAsset from "@/assets/northstar-logo.jpg.asset.json";
+import heroAsset from "@/assets/northstar-hero.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
   queryKey: ["featured-jobs"],
@@ -16,20 +16,20 @@ const featuredJobsQueryOptions = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "NorthStar Traveling Agency | Overseas Jobs & Travel Assistance" },
+      { title: "NorthStarAgency | Overseas Jobs & Travel Assistance" },
       {
         name: "description",
         content:
-          "Find overseas job opportunities with NorthStar Traveling Agency. Recruitment, visa guidance, and travel assistance for cleaners, drivers, caregivers, hotel staff, construction and farm workers.",
+          "Find overseas job opportunities with NorthStarAgency. Recruitment, visa guidance, and travel assistance for cleaners, drivers, caregivers, hotel staff, construction and farm workers.",
       },
       {
         property: "og:title",
-        content: "NorthStar Traveling Agency | Overseas Jobs & Travel Assistance",
+        content: "NorthStarAgency | Overseas Jobs & Travel Assistance",
       },
       {
         property: "og:description",
         content:
-          "Find overseas job opportunities with NorthStar Traveling Agency. Recruitment, visa guidance, and travel assistance.",
+          "Find overseas job opportunities with NorthStarAgency. Recruitment, visa guidance, and travel assistance.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -45,22 +45,24 @@ function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary py-20 text-primary-foreground md:py-28">
-        <div className="container mx-auto px-4">
+      <section className="relative overflow-hidden py-24 text-white md:py-36">
+        <img
+          src={heroAsset.url}
+          alt="NorthStarAgency professionals at an international airport"
+          width={1344}
+          height={768}
+          className="absolute inset-0 h-full w-full object-cover"
+          fetchPriority="high"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/70" />
+        <div className="relative container mx-auto px-4">
           <div className="mx-auto max-w-3xl text-center">
-            <img
-              src={logoAsset.url}
-              alt="NorthStar Traveling Agency logo"
-              width={176}
-              height={176}
-              className="mx-auto mb-8 h-32 w-32 rounded-full object-cover shadow-lg ring-4 ring-primary-foreground/30 md:h-44 md:w-44"
-            />
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
+            <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-sm md:text-6xl">
               Your gateway to overseas careers
             </h1>
-            <p className="mt-6 text-lg/relaxed text-primary-foreground/90 md:text-xl">
-              NorthStar Traveling Agency connects job seekers with trusted employers abroad. We
-              guide you through recruitment, applications, visas, and travel arrangements.
+            <p className="mt-6 text-lg/relaxed text-white/90 md:text-xl">
+              NorthStarAgency connects job seekers with trusted employers abroad. We guide you
+              through recruitment, applications, visas, and travel arrangements.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button size="lg" variant="secondary" asChild>
@@ -72,7 +74,7 @@ function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-primary-foreground/30 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+                className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
                 asChild
               >
                 <Link to="/contact">Get in touch</Link>
