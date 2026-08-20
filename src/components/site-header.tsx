@@ -1,8 +1,21 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, Briefcase, User } from "lucide-react";
+import { Menu, X, User, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { site } from "@/lib/site";
+import logoAsset from "@/assets/northstar-logo.jpg.asset.json";
+
+const navItems = [
+  { label: "Home", to: "/" },
+  { label: "Jobs Abroad", to: "/jobs" },
+  { label: "Destinations", to: "/destinations" },
+  { label: "Services", to: "/services" },
+  { label: "How to Apply", to: "/how-to-apply" },
+  { label: "About Us", to: "/about" },
+  { label: "FAQ", to: "/faq" },
+  { label: "Contact Us", to: "/contact" },
+] as const;
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -19,32 +32,49 @@ export function SiteHeader() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    setMenuOpen(false);
     router.navigate({ to: "/" });
   };
 
-  const navItems = [
-    { label: "Home", to: "/" },
-    { label: "Jobs", to: "/jobs" },
-    { label: "Portfolios", to: "/portfolios" },
-    { label: "Services", to: "/services" },
-    { label: "About", to: "/about" },
-    { label: "Contact", to: "/contact" },
-  ];
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary">
-          <Briefcase className="h-6 w-6 text-accent" />
-          <span>NorthStarAgency</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
+      <div className="hidden bg-primary text-primary-foreground md:block">
+        <div className="container mx-auto flex h-9 items-center justify-between px-4 text-xs">
+          <span>Recruitment &amp; travel-support services</span>
+          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:underline">
+            <Mail className="h-3.5 w-3.5" />
+            {site.email}
+          </a>
+        </div>
+      </div>
+
+      <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
+        <Link to="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
+          <img
+            src={logoAsset.url}
+            alt="NorthStarTravelingAgency logo"
+            width={40}
+            height={40}
+            className="h-10 w-10 rounded-full object-cover"
+          />
+          <span className="flex flex-col leading-tight">
+            <span className="text-base font-bold tracking-tight text-primary sm:text-lg">
+              NorthStar
+              <span className="text-accent">Agency</span>
+            </span>
+            <span className="hidden text-[11px] uppercase tracking-widest text-muted-foreground sm:block">
+              Your Journey, Our Priority
+            </span>
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           {navItems.map((item) => (
             <Link
               key={item.to}
               to={item.to}
               activeProps={{ className: "text-primary font-semibold" }}
+              activeOptions={{ exact: item.to === "/" }}
               className="text-sm font-medium text-foreground/80 transition-colors hover:text-primary"
             >
               {item.label}
@@ -52,7 +82,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           {session?.user ? (
             <>
               <Button variant="ghost" size="sm" asChild>
@@ -66,63 +96,64 @@ export function SiteHeader() {
               </Button>
             </>
           ) : (
-            <Button size="sm" asChild>
-              <Link to="/auth">Sign in</Link>
-            </Button>
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/auth">Sign in</Link>
+              </Button>
+              <Button size="sm" asChild>
+                <Link to="/jobs">View jobs</Link>
+              </Button>
+            </>
           )}
         </div>
 
         <button
-          className="inline-flex items-center justify-center rounded-md p-2 text-foreground md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border text-foreground lg:hidden"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
-          {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {menuOpen && (
-        <div className="border-t border-border bg-background px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-3">
+        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-border bg-background px-4 py-4 lg:hidden">
+          <nav className="flex flex-col">
             {navItems.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className="text-base font-medium text-foreground/80 hover:text-primary"
+                activeProps={{ className: "text-primary" }}
+                activeOptions={{ exact: item.to === "/" }}
+                className="border-b border-border/60 py-3 text-base font-medium text-foreground/85 hover:text-primary"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
+          </nav>
+          <div className="mt-4 flex flex-col gap-2">
             {session?.user ? (
               <>
-                <Link
-                  to="/dashboard"
-                  className="text-base font-medium text-foreground/80 hover:text-primary"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <button
-                  className="text-left text-base font-medium text-accent hover:text-accent/80"
-                  onClick={() => {
-                    setMenuOpen(false);
-                    handleSignOut();
-                  }}
-                >
+                <Button asChild onClick={() => setMenuOpen(false)}>
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+                <Button variant="outline" onClick={handleSignOut}>
                   Sign out
-                </button>
+                </Button>
               </>
             ) : (
-              <Link
-                to="/auth"
-                className="text-base font-medium text-primary hover:text-primary/80"
-                onClick={() => setMenuOpen(false)}
-              >
-                Sign in
-              </Link>
+              <>
+                <Button asChild onClick={() => setMenuOpen(false)}>
+                  <Link to="/jobs">View job opportunities</Link>
+                </Button>
+                <Button variant="outline" asChild onClick={() => setMenuOpen(false)}>
+                  <Link to="/auth">Sign in</Link>
+                </Button>
+              </>
             )}
-          </nav>
+          </div>
         </div>
       )}
     </header>
