@@ -15,9 +15,9 @@ const jobQueryOptions = (id: string) =>
 export const Route = createFileRoute("/jobs/$id")({
   head: () => ({
     meta: [
-      { title: "Job Details | NorthStar Traveling Agency" },
+      { title: "Job Details | NorthStarAgency" },
       { name: "description", content: "View job details and apply for overseas opportunities." },
-      { property: "og:title", content: "Job Details | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Job Details | NorthStarAgency" },
       { property: "og:description", content: "View job details and apply for overseas opportunities." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

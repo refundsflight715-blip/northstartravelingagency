@@ -14,9 +14,9 @@ const dashboardQueryOptions = queryOptions({
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard | NorthStar Traveling Agency" },
+      { title: "Dashboard | NorthStarAgency" },
       { name: "description", content: "Your NorthStar candidate dashboard." },
-      { property: "og:title", content: "Dashboard | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Dashboard | NorthStarAgency" },
       { property: "og:description", content: "Your NorthStar candidate dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

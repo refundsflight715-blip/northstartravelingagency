@@ -9,7 +9,7 @@ export function SiteFooter() {
           <div>
             <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary">
               <Briefcase className="h-6 w-6 text-accent" />
-              <span>NorthStar</span>
+              <span>NorthStarAgency</span>
             </Link>
             <p className="mt-3 text-sm text-muted-foreground">
               Connecting job seekers with overseas opportunities. Recruitment, visa guidance, and
@@ -63,7 +63,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} NorthStar Traveling Agency. All rights reserved.
+          &copy; {new Date().getFullYear()} NorthStarAgency. All rights reserved.
         </div>
       </div>
     </footer>

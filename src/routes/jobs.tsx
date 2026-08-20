@@ -15,13 +15,13 @@ const allJobsQueryOptions = queryOptions({
 export const Route = createFileRoute("/jobs")({
   head: () => ({
     meta: [
-      { title: "Browse Overseas Jobs | NorthStar Traveling Agency" },
+      { title: "Browse Overseas Jobs | NorthStarAgency" },
       {
         name: "description",
         content:
           "Browse current overseas job openings for cleaners, drivers, caregivers, hotel staff, construction workers and farm workers.",
       },
-      { property: "og:title", content: "Browse Overseas Jobs | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Browse Overseas Jobs | NorthStarAgency" },
       {
         property: "og:description",
         content: "Current overseas job openings across multiple industries and countries.",

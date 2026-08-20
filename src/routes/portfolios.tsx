@@ -7,13 +7,13 @@ import { portfolios } from "@/lib/portfolios";
 export const Route = createFileRoute("/portfolios")({
   head: () => ({
     meta: [
-      { title: "Career Portfolios | NorthStar Traveling Agency" },
+      { title: "Career Portfolios | NorthStarAgency" },
       {
         name: "description",
         content:
           "Explore career portfolios for air hostesses, airport ground crew, aircraft technicians, security guards, couriers and logistics workers across continents.",
       },
-      { property: "og:title", content: "Career Portfolios | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Career Portfolios | NorthStarAgency" },
       {
         property: "og:description",
         content:

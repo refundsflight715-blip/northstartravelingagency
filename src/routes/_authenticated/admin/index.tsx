@@ -11,9 +11,9 @@ const statsQueryOptions = queryOptions({
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard | NorthStar Traveling Agency" },
+      { title: "Admin Dashboard | NorthStarAgency" },
       { name: "description", content: "NorthStar admin dashboard overview." },
-      { property: "og:title", content: "Admin Dashboard | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Admin Dashboard | NorthStarAgency" },
       { property: "og:description", content: "NorthStar admin dashboard overview." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

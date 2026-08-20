@@ -20,9 +20,9 @@ const profileQueryOptions = queryOptions({
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile | NorthStar Traveling Agency" },
+      { title: "My Profile | NorthStarAgency" },
       { name: "description", content: "Update your candidate profile." },
-      { property: "og:title", content: "My Profile | NorthStar Traveling Agency" },
+      { property: "og:title", content: "My Profile | NorthStarAgency" },
       { property: "og:description", content: "Update your candidate profile." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
