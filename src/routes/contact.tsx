@@ -13,13 +13,13 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Us | NorthStar Traveling Agency" },
+      { title: "Contact Us | NorthStarAgency" },
       {
         name: "description",
         content:
-          "Contact NorthStar Traveling Agency for overseas job opportunities, recruitment partnerships, visa guidance and travel assistance.",
+          "Contact NorthStarAgency for overseas job opportunities, recruitment partnerships, visa guidance and travel assistance.",
       },
-      { property: "og:title", content: "Contact Us | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Contact Us | NorthStarAgency" },
       {
         property: "og:description",
         content: "Reach out for overseas jobs, recruitment partnerships or travel assistance.",

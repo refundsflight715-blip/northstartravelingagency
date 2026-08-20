@@ -4,13 +4,13 @@ import { Briefcase, FileCheck, Plane, Home, ClipboardList, Globe } from "lucide-
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Our Services | NorthStar Traveling Agency" },
+      { title: "Our Services | NorthStarAgency" },
       {
         name: "description",
         content:
           "Explore NorthStar's services: overseas job recruitment, application guidance, visa support, document preparation and travel arrangements.",
       },
-      { property: "og:title", content: "Our Services | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Our Services | NorthStarAgency" },
       {
         property: "og:description",
         content: "Overseas job recruitment, application guidance, visa support and travel arrangements.",

@@ -4,16 +4,16 @@ import { Target, Shield, HeartHandshake, Users } from "lucide-react";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us | NorthStar Traveling Agency" },
+      { title: "About Us | NorthStarAgency" },
       {
         name: "description",
         content:
-          "Learn about NorthStar Traveling Agency's mission to connect job seekers with ethical overseas employers and provide trusted recruitment support.",
+          "Learn about NorthStarAgency's mission to connect job seekers with ethical overseas employers and provide trusted recruitment support.",
       },
-      { property: "og:title", content: "About Us | NorthStar Traveling Agency" },
+      { property: "og:title", content: "About Us | NorthStarAgency" },
       {
         property: "og:description",
-        content: "Learn about NorthStar Traveling Agency's mission and values.",
+        content: "Learn about NorthStarAgency's mission and values.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -28,7 +28,7 @@ function AboutPage() {
       <div className="mx-auto max-w-3xl text-center">
         <h1 className="text-4xl font-bold text-foreground md:text-5xl">About NorthStar</h1>
         <p className="mt-6 text-lg text-muted-foreground">
-          NorthStar Traveling Agency is a recruitment and travel-assistance firm helping people find
+          NorthStarAgency is a recruitment and travel-assistance firm helping people find
           meaningful work abroad. We partner with verified employers in hospitality, healthcare
           support, construction, agriculture and logistics.
         </p>

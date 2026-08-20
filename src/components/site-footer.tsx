@@ -63,7 +63,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} NorthStar Traveling Agency. All rights reserved.
+          &copy; {new Date().getFullYear()} NorthStarAgency. All rights reserved.
         </div>
       </div>
     </footer>

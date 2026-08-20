@@ -22,12 +22,12 @@ const jobQueryOptions = (id: string) =>
 export const Route = createFileRoute("/jobs/$id/apply")({
   head: () => ({
     meta: [
-      { title: "Apply for Job | NorthStar Traveling Agency" },
+      { title: "Apply for Job | NorthStarAgency" },
       {
         name: "description",
-        content: "Submit your application for an overseas job with NorthStar Traveling Agency.",
+        content: "Submit your application for an overseas job with NorthStarAgency.",
       },
-      { property: "og:title", content: "Apply for Job | NorthStar Traveling Agency" },
+      { property: "og:title", content: "Apply for Job | NorthStarAgency" },
       {
         property: "og:description",
         content: "Submit your application for an overseas job.",

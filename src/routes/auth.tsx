@@ -24,9 +24,9 @@ type AuthForm = z.infer<typeof authSchema>;
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Sign In | NorthStar Traveling Agency" },
-      { name: "description", content: "Sign in or create an account with NorthStar Traveling Agency." },
-      { property: "og:title", content: "Sign In | NorthStar Traveling Agency" },
+      { title: "Sign In | NorthStarAgency" },
+      { name: "description", content: "Sign in or create an account with NorthStarAgency." },
+      { property: "og:title", content: "Sign In | NorthStarAgency" },
       { property: "og:description", content: "Sign in or create an account." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
