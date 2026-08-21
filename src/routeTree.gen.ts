@@ -23,6 +23,7 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as JobsIndexRouteImport } from './routes/jobs.index'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
@@ -99,6 +100,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => JobsRoute,
+} as any)
 const JobsIdRoute = JobsIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -146,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs/': typeof JobsIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -160,12 +167,12 @@ export interface FileRoutesByTo {
   '/destinations': typeof DestinationsRoute
   '/faq': typeof FaqRoute
   '/how-to-apply': typeof HowToApplyRoute
-  '/jobs': typeof JobsRouteWithChildren
   '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
   '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs': typeof JobsIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -189,6 +196,7 @@ export interface FileRoutesById {
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs/': typeof JobsIndexRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
@@ -212,6 +220,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/profile'
     | '/jobs/$id'
+    | '/jobs/'
     | '/admin/applications'
     | '/admin/jobs'
     | '/admin/users'
@@ -226,12 +235,12 @@ export interface FileRouteTypes {
     | '/destinations'
     | '/faq'
     | '/how-to-apply'
-    | '/jobs'
     | '/portfolios'
     | '/services'
     | '/dashboard'
     | '/profile'
     | '/jobs/$id'
+    | '/jobs'
     | '/admin/applications'
     | '/admin/jobs'
     | '/admin/users'
@@ -254,6 +263,7 @@ export interface FileRouteTypes {
     | '/_authenticated/dashboard'
     | '/_authenticated/profile'
     | '/jobs/$id'
+    | '/jobs/'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/jobs'
     | '/_authenticated/admin/users'
@@ -375,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof JobsRoute
+    }
     '/jobs/$id': {
       id: '/jobs/$id'
       path: '/$id'
@@ -468,10 +485,12 @@ const JobsIdRouteWithChildren =
 
 interface JobsRouteChildren {
   JobsIdRoute: typeof JobsIdRouteWithChildren
+  JobsIndexRoute: typeof JobsIndexRoute
 }
 
 const JobsRouteChildren: JobsRouteChildren = {
   JobsIdRoute: JobsIdRouteWithChildren,
+  JobsIndexRoute: JobsIndexRoute,
 }
 
 const JobsRouteWithChildren = JobsRoute._addFileChildren(JobsRouteChildren)
