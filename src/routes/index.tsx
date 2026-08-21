@@ -81,6 +81,33 @@ function HomePage() {
                 <Link to="/contact">Get in touch</Link>
               </Button>
             </div>
+            <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button
+                size="lg"
+                className="bg-[#25D366] text-white hover:bg-[#128C7E]"
+                asChild
+              >
+                <a
+                  href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  WhatsApp us
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                asChild
+              >
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call us
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
