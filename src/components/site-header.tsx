@@ -1,6 +1,6 @@
 import { Link, useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Menu, X, User, Mail } from "lucide-react";
+import { Menu, X, User, Mail, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { site } from "@/lib/site";
@@ -41,10 +41,25 @@ export function SiteHeader() {
       <div className="hidden bg-primary text-primary-foreground md:block">
         <div className="container mx-auto flex h-9 items-center justify-between px-4 text-xs">
           <span>Recruitment &amp; travel-support services</span>
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:underline">
-            <Mail className="h-3.5 w-3.5" />
-            {site.email}
-          </a>
+          <div className="flex items-center gap-4">
+            <a href={`tel:${site.phone}`} className="flex items-center gap-1.5 hover:underline">
+              <Phone className="h-3.5 w-3.5" />
+              {site.phone}
+            </a>
+            <a
+              href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:underline"
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              WhatsApp
+            </a>
+            <a href={`mailto:${site.email}`} className="flex items-center gap-1.5 hover:underline">
+              <Mail className="h-3.5 w-3.5" />
+              {site.email}
+            </a>
+          </div>
         </div>
       </div>
 
@@ -52,7 +67,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
           <img
             src={logoAsset.url}
-            alt="NorthStarTravelingAgency logo"
+            alt="NorthStarAgency logo"
             width={40}
             height={40}
             className="h-10 w-10 rounded-full object-cover"

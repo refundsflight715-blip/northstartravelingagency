@@ -1,10 +1,11 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { MapPin, DollarSign, Clock, Calendar, Briefcase, ArrowLeft } from "lucide-react";
+import { MapPin, DollarSign, Clock, Calendar, Briefcase, ArrowLeft, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getJobById } from "@/lib/jobs.functions";
+import { site } from "@/lib/site";
 
 const jobQueryOptions = (id: string) =>
   queryOptions({
@@ -97,7 +98,7 @@ function JobDetailPage() {
           </Card>
         </div>
 
-        <div>
+        <div className="space-y-4">
           <Card className="sticky top-24">
             <CardContent className="pt-6">
               <h2 className="text-lg font-semibold text-foreground">Ready to apply?</h2>
@@ -110,6 +111,33 @@ function JobDetailPage() {
                   Apply now
                 </Link>
               </Button>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <h2 className="text-lg font-semibold text-foreground">Questions?</h2>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Reach out directly for a quick response.
+              </p>
+              <div className="mt-4 flex flex-col gap-2">
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <a
+                    href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    WhatsApp us
+                  </a>
+                </Button>
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <a href={`tel:${site.phone}`}>
+                    <Phone className="mr-2 h-4 w-4" />
+                    Call us
+                  </a>
+                </Button>
+              </div>
             </CardContent>
           </Card>
         </div>

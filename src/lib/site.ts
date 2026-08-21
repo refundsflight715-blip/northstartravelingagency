@@ -1,14 +1,13 @@
 export const site = {
-  name: "NorthStarTravelingAgency",
+  name: "NorthStarAgency",
   shortName: "NorthStarAgency",
-  email: "northstartravelingagency@gmail.com",
-  /** Verified phone / WhatsApp number in international format, e.g. "+254700000000".
-   *  Left empty on purpose — buttons stay hidden until a verified number is provided. */
-  phone: "",
-  whatsapp: "",
+  email: "northstaragency.web@gmail.com",
+  /** Verified phone / WhatsApp number in international format, e.g. "+254700000000". */
+  phone: "+254762932660",
+  whatsapp: "+254762932660",
   tagline: "Your Journey. Your Opportunity. Your Next Destination.",
   intro:
-    "NorthStarTravelingAgency provides recruitment and travel-support services for individuals exploring employment opportunities and international travel.",
+    "NorthStarAgency provides recruitment and travel-support services for individuals exploring employment opportunities and international travel.",
 };
 
 export const generalNotice =

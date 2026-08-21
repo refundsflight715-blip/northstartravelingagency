@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions } from "@tanstack/react-query";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, Globe, Briefcase, FileText, Plane } from "lucide-react";
+import { ArrowRight, Globe, Briefcase, FileText, Plane, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
 import { portfolios } from "@/lib/portfolios";
+import { site } from "@/lib/site";
 import heroAsset from "@/assets/northstar-hero.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
@@ -78,6 +79,29 @@ function HomePage() {
                 asChild
               >
                 <Link to="/contact">Get in touch</Link>
+              </Button>
+            </div>
+            <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
+              <Button size="lg" asChild>
+                <a
+                  href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <MessageCircle className="mr-2 h-5 w-5" />
+                  WhatsApp us
+                </a>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+                asChild
+              >
+                <a href={`tel:${site.phone}`}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call us
+                </a>
               </Button>
             </div>
           </div>

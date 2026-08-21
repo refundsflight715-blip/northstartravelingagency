@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Briefcase, Mail, MapPin, Phone } from "lucide-react";
+import { Briefcase, Mail, Phone, MessageCircle } from "lucide-react";
+import { site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
@@ -48,15 +49,26 @@ export function SiteFooter() {
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
-                info@northstartravel.com
+                <a href={`mailto:${site.email}`} className="hover:text-primary">
+                  {site.email}
+                </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
-                +1 (555) 123-4567
+                <a href={`tel:${site.phone}`} className="hover:text-primary">
+                  {site.phone}
+                </a>
               </li>
               <li className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-primary" />
-                123 Global Plaza, Suite 400
+                <MessageCircle className="h-4 w-4 text-primary" />
+                <a
+                  href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary"
+                >
+                  WhatsApp us
+                </a>
               </li>
             </ul>
           </div>
