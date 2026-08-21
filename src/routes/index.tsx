@@ -82,11 +82,7 @@ function HomePage() {
               </Button>
             </div>
             <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                className="bg-[#25D366] text-white hover:bg-[#128C7E]"
-                asChild
-              >
+              <Button size="lg" asChild>
                 <a
                   href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
                   target="_blank"
