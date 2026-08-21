@@ -62,17 +62,43 @@ function ContactPage() {
           <ul className="mt-6 space-y-4 text-muted-foreground">
             <li className="flex items-center gap-3">
               <Mail className="h-5 w-5 text-primary" />
-              info@northstartravel.com
+              <a href={`mailto:${site.email}`} className="hover:text-primary">
+                {site.email}
+              </a>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="h-5 w-5 text-primary" />
-              +1 (555) 123-4567
+              <a href={`tel:${site.phone}`} className="hover:text-primary">
+                {site.phone}
+              </a>
             </li>
-            <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 h-5 w-5 text-primary" />
-              123 Global Plaza, Suite 400
+            <li className="flex items-center gap-3">
+              <MessageCircle className="h-5 w-5 text-primary" />
+              <a
+                href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary"
+              >
+                {site.whatsapp} on WhatsApp
+              </a>
             </li>
           </ul>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button asChild className="w-full sm:w-auto">
+              <a href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`} target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="mr-2 h-4 w-4" />
+                WhatsApp us
+              </a>
+            </Button>
+            <Button variant="outline" asChild className="w-full sm:w-auto">
+              <a href={`tel:${site.phone}`}>
+                <Phone className="mr-2 h-4 w-4" />
+                Call us
+              </a>
+            </Button>
+          </div>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
