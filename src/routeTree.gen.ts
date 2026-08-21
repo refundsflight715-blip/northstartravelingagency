@@ -14,6 +14,9 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DestinationsRouteImport } from './routes/destinations'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as HowToApplyRouteImport } from './routes/how-to-apply'
 import { Route as JobsRouteImport } from './routes/jobs'
 import { Route as PortfoliosRouteImport } from './routes/portfolios'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -49,6 +52,21 @@ const AuthRoute = AuthRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestinationsRoute = DestinationsRouteImport.update({
+  id: '/destinations',
+  path: '/destinations',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowToApplyRoute = HowToApplyRouteImport.update({
+  id: '/how-to-apply',
+  path: '/how-to-apply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JobsRoute = JobsRouteImport.update({
@@ -118,6 +136,9 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
+  '/how-to-apply': typeof HowToApplyRoute
   '/jobs': typeof JobsRouteWithChildren
   '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
@@ -136,6 +157,9 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
+  '/how-to-apply': typeof HowToApplyRoute
   '/jobs': typeof JobsRouteWithChildren
   '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
@@ -155,6 +179,9 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/destinations': typeof DestinationsRoute
+  '/faq': typeof FaqRoute
+  '/how-to-apply': typeof HowToApplyRoute
   '/jobs': typeof JobsRouteWithChildren
   '/portfolios': typeof PortfoliosRoute
   '/services': typeof ServicesRoute
@@ -175,6 +202,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/destinations'
+    | '/faq'
+    | '/how-to-apply'
     | '/jobs'
     | '/portfolios'
     | '/services'
@@ -193,6 +223,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/destinations'
+    | '/faq'
+    | '/how-to-apply'
     | '/jobs'
     | '/portfolios'
     | '/services'
@@ -211,6 +244,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/destinations'
+    | '/faq'
+    | '/how-to-apply'
     | '/jobs'
     | '/portfolios'
     | '/services'
@@ -231,6 +267,9 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  DestinationsRoute: typeof DestinationsRoute
+  FaqRoute: typeof FaqRoute
+  HowToApplyRoute: typeof HowToApplyRoute
   JobsRoute: typeof JobsRouteWithChildren
   PortfoliosRoute: typeof PortfoliosRoute
   ServicesRoute: typeof ServicesRoute
@@ -271,6 +310,27 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destinations': {
+      id: '/destinations'
+      path: '/destinations'
+      fullPath: '/destinations'
+      preLoaderRoute: typeof DestinationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-to-apply': {
+      id: '/how-to-apply'
+      path: '/how-to-apply'
+      fullPath: '/how-to-apply'
+      preLoaderRoute: typeof HowToApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jobs': {
@@ -422,6 +482,9 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  DestinationsRoute: DestinationsRoute,
+  FaqRoute: FaqRoute,
+  HowToApplyRoute: HowToApplyRoute,
   JobsRoute: JobsRouteWithChildren,
   PortfoliosRoute: PortfoliosRoute,
   ServicesRoute: ServicesRoute,
