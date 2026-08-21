@@ -41,10 +41,25 @@ export function SiteHeader() {
       <div className="hidden bg-primary text-primary-foreground md:block">
         <div className="container mx-auto flex h-9 items-center justify-between px-4 text-xs">
           <span>Recruitment &amp; travel-support services</span>
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:underline">
-            <Mail className="h-3.5 w-3.5" />
-            {site.email}
-          </a>
+          <div className="flex items-center gap-4">
+            <a href={`tel:${site.phone}`} className="flex items-center gap-1.5 hover:underline">
+              <Phone className="h-3.5 w-3.5" />
+              {site.phone}
+            </a>
+            <a
+              href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:underline"
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              WhatsApp
+            </a>
+            <a href={`mailto:${site.email}`} className="flex items-center gap-1.5 hover:underline">
+              <Mail className="h-3.5 w-3.5" />
+              {site.email}
+            </a>
+          </div>
         </div>
       </div>
 
