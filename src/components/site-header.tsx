@@ -67,7 +67,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
           <img
             src={logoAsset.url}
-            alt="NorthStarTravelingAgency logo"
+            alt="NorthStarAgency logo"
             width={40}
             height={40}
             className="h-10 w-10 rounded-full object-cover"
