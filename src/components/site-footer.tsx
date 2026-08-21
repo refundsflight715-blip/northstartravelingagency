@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Briefcase, Mail, MapPin, Phone } from "lucide-react";
+import { Briefcase, Mail, Phone, MessageCircle } from "lucide-react";
+import { site } from "@/lib/site";
 
 export function SiteFooter() {
   return (
