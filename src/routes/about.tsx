@@ -26,7 +26,7 @@ function AboutPage() {
   return (
     <div className="container mx-auto px-4 py-16 md:py-24">
       <div className="mx-auto max-w-3xl text-center">
-        <h1 className="text-4xl font-bold text-foreground md:text-5xl">About NorthStar</h1>
+        <h1 className="text-4xl font-bold text-foreground md:text-5xl">About NorthStarAgency</h1>
         <p className="mt-6 text-lg text-muted-foreground">
           NorthStarAgency is a recruitment and travel-assistance firm helping people find
           meaningful work abroad. We partner with verified employers in hospitality, healthcare
