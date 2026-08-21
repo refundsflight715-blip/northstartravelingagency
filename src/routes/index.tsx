@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions } from "@tanstack/react-query";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, Globe, Briefcase, FileText, Plane } from "lucide-react";
+import { ArrowRight, Globe, Briefcase, FileText, Plane, Phone, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
 import { portfolios } from "@/lib/portfolios";
+import { site } from "@/lib/site";
 import heroAsset from "@/assets/northstar-hero.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
