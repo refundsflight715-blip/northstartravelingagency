@@ -7,7 +7,7 @@ import { JobCard } from "@/components/job-card";
 import { getPublishedJobs } from "@/lib/jobs.functions";
 import { portfolios } from "@/lib/portfolios";
 import { site } from "@/lib/site";
-import heroAsset from "@/assets/northstar-hero.jpg.asset.json";
+import heroAsset from "@/assets/northstar-hero-banner.jpg.asset.json";
 
 const featuredJobsQueryOptions = queryOptions({
   queryKey: ["featured-jobs"],
