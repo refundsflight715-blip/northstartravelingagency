@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 import { Notice } from "@/components/notice";
 import { Button } from "@/components/ui/button";
 import { destinations, eligibilityNotice, site } from "@/lib/site";
+import australiaPoster from "@/assets/australia-security-works.jpg.asset.json";
 
 export const Route = createFileRoute("/destinations")({
   head: () => ({
@@ -42,6 +43,16 @@ function DestinationsPage() {
             key={d.slug}
             className="flex flex-col rounded-xl border border-border bg-card p-6 text-card-foreground"
           >
+            {d.slug === "australia" && (
+              <div className="-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-xl">
+                <img
+                  src={australiaPoster.url}
+                  alt="Security works in Australia recruitment poster"
+                  className="h-48 w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            )}
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <MapPin className="h-4 w-4 text-primary" aria-hidden="true" />
               {d.region}
