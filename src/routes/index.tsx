@@ -47,6 +47,9 @@ function HomePage() {
     <div className="flex flex-col">
       {/* Hero */}
       <section className="bg-primary">
+        <h1 className="sr-only">
+          NorthStarAgency — connecting you to global job opportunities and travel support
+        </h1>
         <img
           src={heroAsset.url}
           alt="NorthStarAgency — connecting you to global opportunities"
