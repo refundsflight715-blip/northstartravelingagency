@@ -46,67 +46,56 @@ function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero */}
-      <section className="relative overflow-hidden py-24 text-white md:py-36">
+      <section className="bg-primary">
         <img
           src={heroAsset.url}
-          alt="NorthStarAgency professionals at an international airport"
-          width={1344}
-          height={768}
-          className="absolute inset-0 h-full w-full object-cover"
+          alt="NorthStarAgency — connecting you to global opportunities"
+          width={1599}
+          height={853}
+          className="block h-auto w-full"
           fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-primary/70" />
-        <div className="relative container mx-auto px-4">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-sm md:text-6xl">
-              Your gateway to overseas careers
-            </h1>
-            <p className="mt-6 text-lg/relaxed text-white/90 md:text-xl">
-              NorthStarAgency connects job seekers with trusted employers abroad. We guide you
-              through recruitment, applications, visas, and travel arrangements.
-            </p>
-            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button size="lg" variant="secondary" asChild>
-                <Link to="/jobs">
-                  Browse jobs
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-                asChild
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex flex-col flex-wrap justify-center gap-3 sm:flex-row">
+            <Button size="lg" variant="secondary" asChild>
+              <Link to="/jobs">
+                Browse jobs
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              asChild
+            >
+              <Link to="/contact">Get in touch</Link>
+            </Button>
+            <Button size="lg" variant="secondary" asChild>
+              <a
+                href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                <Link to="/contact">Get in touch</Link>
-              </Button>
-            </div>
-            <div className="mt-4 flex flex-col justify-center gap-3 sm:flex-row">
-              <Button size="lg" asChild>
-                <a
-                  href={`https://wa.me/${site.whatsapp.replace(/^\+/, "")}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="mr-2 h-5 w-5" />
-                  WhatsApp us
-                </a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-                asChild
-              >
-                <a href={`tel:${site.phone}`}>
-                  <Phone className="mr-2 h-5 w-5" />
-                  Call us
-                </a>
-              </Button>
-            </div>
+                <MessageCircle className="mr-2 h-5 w-5" />
+                WhatsApp us
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              asChild
+            >
+              <a href={`tel:${site.phone}`}>
+                <Phone className="mr-2 h-5 w-5" />
+                Call us
+              </a>
+            </Button>
           </div>
         </div>
       </section>
+
 
       {/* Services */}
       <section className="py-16 md:py-24">

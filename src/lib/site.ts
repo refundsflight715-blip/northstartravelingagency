@@ -1,7 +1,7 @@
 export const site = {
   name: "NorthStarAgency",
   shortName: "NorthStarAgency",
-  email: "northstaragency.web@gmail.com",
+  email: "northstaragenyweb@gmail.com",
   /** Verified phone / WhatsApp number in international format, e.g. "+254700000000". */
   phone: "+254762932660",
   whatsapp: "+254762932660",
