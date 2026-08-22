@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 import { Notice } from "@/components/notice";
 import { Button } from "@/components/ui/button";
 import { destinations, eligibilityNotice, site } from "@/lib/site";
+import australiaPoster from "@/assets/australia-security-works.jpg.asset.json";
 
 export const Route = createFileRoute("/destinations")({
   head: () => ({
