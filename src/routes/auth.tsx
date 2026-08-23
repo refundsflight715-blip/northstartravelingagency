@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { lovable } from "@/integrations/lovable";
 import { supabase } from "@/integrations/supabase/client";
+import { getCurrentUser } from "@/lib/auth.functions";
 import { z } from "zod";
 import { toast } from "sonner";
 
@@ -71,7 +72,14 @@ function AuthPage() {
         });
         if (error) throw error;
         toast.success("Signed in successfully.");
-        router.navigate({ to: "/dashboard" });
+        let isAdmin = false;
+        try {
+          const current = await getCurrentUser();
+          isAdmin = current.roles.includes("admin");
+        } catch {
+          isAdmin = false;
+        }
+        router.navigate({ to: isAdmin ? "/admin" : "/dashboard" });
       }
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Authentication failed.");
