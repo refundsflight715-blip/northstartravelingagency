@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
@@ -40,7 +40,10 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ready, setReady] = useState(false);
   const router = useRouter();
+
+  useEffect(() => setReady(true), []);
 
   const {
     register,
@@ -119,7 +122,7 @@ function AuthPage() {
                 errors={errors}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                loading={loading}
+                loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
               />
@@ -131,7 +134,7 @@ function AuthPage() {
                 errors={errors}
                 showPassword={showPassword}
                 setShowPassword={setShowPassword}
-                loading={loading}
+                loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
               />
@@ -163,7 +166,13 @@ function AuthFields({
   googleSignIn: () => void;
 }) {
   return (
-    <form onSubmit={onSubmit} className="space-y-4 pt-2">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+      }}
+      className="space-y-4 pt-2"
+    >
       {mode === "signup" && (
         <div className="space-y-2">
           <Label htmlFor="full_name">Full name</Label>

@@ -9,8 +9,8 @@ export const getMyProfile = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("profiles")
       .select("*")
-      .eq("id", context.userId)
-      .single();
+      .eq("user_id", context.userId)
+      .maybeSingle();
     if (error) throw new Error(error.message);
     return data;
   });
@@ -28,7 +28,7 @@ export const updateProfile = createServerFn({ method: "POST" })
         bio: data.bio ?? null,
         resume_url: data.resume_url ?? null,
       })
-      .eq("id", context.userId)
+      .eq("user_id", context.userId)
       .select()
       .single();
     if (error) throw new Error(error.message);

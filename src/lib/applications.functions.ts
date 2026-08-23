@@ -68,10 +68,19 @@ export const getAllApplications = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("applications")
-      .select("*, jobs(title, country, category), profiles(full_name, phone, country)")
+      .select("*, jobs(title, country, category)")
       .order("created_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    const userIds = [...new Set(rows.map((r) => r.user_id))];
+    const { data: profiles } = userIds.length
+      ? await context.supabase
+          .from("profiles")
+          .select("user_id, full_name, phone, country")
+          .in("user_id", userIds)
+      : { data: [] as { user_id: string; full_name: string | null; phone: string | null; country: string | null }[] };
+    const byUser = new Map((profiles ?? []).map((p) => [p.user_id, p]));
+    return rows.map((r) => ({ ...r, profiles: byUser.get(r.user_id) ?? null }));
   });
 
 export const updateApplicationStatus = createServerFn({ method: "POST" })

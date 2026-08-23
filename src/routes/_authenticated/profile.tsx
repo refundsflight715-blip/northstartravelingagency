@@ -43,11 +43,11 @@ function ProfilePage() {
   } = useForm<ProfileInput>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      full_name: profile.full_name ?? "",
-      phone: profile.phone ?? "",
-      country: profile.country ?? "",
-      bio: profile.bio ?? "",
-      resume_url: profile.resume_url ?? "",
+      full_name: profile?.full_name ?? "",
+      phone: profile?.phone ?? "",
+      country: profile?.country ?? "",
+      bio: profile?.bio ?? "",
+      resume_url: profile?.resume_url ?? "",
     },
   });
 
