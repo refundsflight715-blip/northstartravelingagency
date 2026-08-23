@@ -7,8 +7,8 @@ export const getCurrentUser = createServerFn({ method: "GET" })
     const { data: profile, error: profileError } = await context.supabase
       .from("profiles")
       .select("*")
-      .eq("id", context.userId)
-      .single();
+      .eq("user_id", context.userId)
+      .maybeSingle();
 
     const { data: roles, error: rolesError } = await context.supabase
       .from("user_roles")

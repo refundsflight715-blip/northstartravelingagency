@@ -51,9 +51,18 @@ export const getUserRoles = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("user_roles")
-      .select("*, profiles(id, full_name, email)");
+      .select("*");
     if (error) throw new Error(error.message);
-    return data ?? [];
+    const rows = data ?? [];
+    const userIds = [...new Set(rows.map((r) => r.user_id))];
+    const { data: profiles } = userIds.length
+      ? await context.supabase
+          .from("profiles")
+          .select("id, user_id, full_name, email")
+          .in("user_id", userIds)
+      : { data: [] as { id: string; user_id: string; full_name: string | null; email: string | null }[] };
+    const byUser = new Map((profiles ?? []).map((p) => [p.user_id, p]));
+    return rows.map((r) => ({ ...r, profiles: byUser.get(r.user_id) ?? null }));
   });
 
 export const setUserRole = createServerFn({ method: "POST" })
