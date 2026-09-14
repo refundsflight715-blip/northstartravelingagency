@@ -10,11 +10,10 @@ export function SiteFooter() {
           <div>
             <Link to="/" className="flex items-center gap-2 text-xl font-bold text-primary">
               <Briefcase className="h-6 w-6 text-accent" />
-              <span>NorthStarAgency</span>
+              <span className="font-display text-2xl font-normal">NorthStarTravelingAgency Kenya Ltd</span>
             </Link>
             <p className="mt-3 text-sm text-muted-foreground">
-              Connecting job seekers with overseas opportunities. Recruitment, visa guidance, and
-              travel assistance in one place.
+              Helping job seekers explore overseas opportunities with application and travel-process guidance.
             </p>
           </div>
 
@@ -75,7 +74,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-          &copy; {new Date().getFullYear()} NorthStarAgency. All rights reserved.
+          &copy; {new Date().getFullYear()} NorthStarTravelingAgency Kenya Ltd. All rights reserved.
         </div>
       </div>
     </footer>
