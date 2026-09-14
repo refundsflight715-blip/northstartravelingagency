@@ -1,10 +1,10 @@
 export const site = {
-  name: "NorthStarAgency",
-  shortName: "NorthStarAgency",
+  name: "NorthStarTravelingAgency Kenya Ltd",
+  shortName: "NorthStar",
   email: "northstaragenyweb@gmail.com",
   /** Verified phone / WhatsApp number in international format, e.g. "+254700000000". */
   phone: "+254762932660",
-  whatsapp: "+254762932660",
+  whatsapp: "+254100922332",
   tagline: "Your Journey. Your Opportunity. Your Next Destination.",
   intro:
     "NorthStarAgency provides recruitment and travel-support services for individuals exploring employment opportunities and international travel.",
