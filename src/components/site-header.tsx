@@ -113,8 +113,6 @@ export function SiteHeader() {
               <Link
                 key={item.to}
                 to={item.to}
-                activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: item.to === "/" }}
                 className="border-b border-sidebar-border py-3 text-sm font-medium uppercase text-sidebar-foreground/85 hover:text-primary"
                 onClick={() => setMenuOpen(false)}
               >
