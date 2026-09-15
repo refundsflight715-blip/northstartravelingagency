@@ -157,6 +157,7 @@ function AuthFields({
   loading,
   onSubmit,
   googleSignIn,
+  onToggleMode,
 }: {
   mode: "signin" | "signup";
   register: ReturnType<typeof useForm<AuthForm>>["register"];
@@ -166,6 +167,7 @@ function AuthFields({
   loading: boolean;
   onSubmit: () => void;
   googleSignIn: () => void;
+  onToggleMode: () => void;
 }) {
   return (
     <form
