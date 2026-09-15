@@ -228,7 +228,7 @@ function AuthFields({
         <button
           type="button"
           className="font-medium text-primary hover:underline"
-          onClick={() => {}}
+          onClick={onToggleMode}
         >
           {mode === "signin" ? "Create one" : "Sign in"}
         </button>
