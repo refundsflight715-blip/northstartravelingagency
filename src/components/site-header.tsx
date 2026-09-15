@@ -76,8 +76,6 @@ export function SiteHeader() {
             <Link
               key={item.to}
               to={item.to}
-              activeProps={{ className: "text-primary font-semibold" }}
-              activeOptions={{ exact: item.to === "/" }}
               className="text-[11px] font-medium uppercase tracking-[0.08em] text-sidebar-foreground/75 transition-colors hover:text-primary"
             >
               {item.label}
