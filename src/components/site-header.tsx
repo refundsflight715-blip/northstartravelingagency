@@ -143,7 +143,7 @@ export function SiteHeader() {
                 <Button asChild onClick={() => setMenuOpen(false)}>
                   <Link to="/jobs">Apply now</Link>
                 </Button>
-                <Button variant="outline" asChild onClick={() => setMenuOpen(false)}>
+                <Button variant="outline" className="border-sidebar-foreground/30 bg-transparent text-sidebar-foreground hover:bg-sidebar-foreground hover:text-sidebar" asChild onClick={() => setMenuOpen(false)}>
                   <Link to="/auth">Sign in</Link>
                 </Button>
               </>
