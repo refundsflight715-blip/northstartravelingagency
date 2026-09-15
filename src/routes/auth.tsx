@@ -125,6 +125,7 @@ function AuthPage() {
                 loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
+                onToggleMode={() => setMode("signup")}
               />
             </TabsContent>
             <TabsContent value="signup">
@@ -137,6 +138,7 @@ function AuthPage() {
                 loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
+                onToggleMode={() => setMode("signin")}
               />
             </TabsContent>
           </Tabs>
@@ -155,6 +157,7 @@ function AuthFields({
   loading,
   onSubmit,
   googleSignIn,
+  onToggleMode,
 }: {
   mode: "signin" | "signup";
   register: ReturnType<typeof useForm<AuthForm>>["register"];
@@ -164,6 +167,7 @@ function AuthFields({
   loading: boolean;
   onSubmit: () => void;
   googleSignIn: () => void;
+  onToggleMode: () => void;
 }) {
   return (
     <form
@@ -224,7 +228,7 @@ function AuthFields({
         <button
           type="button"
           className="font-medium text-primary hover:underline"
-          onClick={() => {}}
+          onClick={onToggleMode}
         >
           {mode === "signin" ? "Create one" : "Sign in"}
         </button>

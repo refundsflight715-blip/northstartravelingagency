@@ -1,17 +1,16 @@
-import { Link, useRouter } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Menu, X, User, Phone, MessageCircle, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { site } from "@/lib/site";
-import logoAsset from "@/assets/northstar-logo.jpg.asset.json";
 
 const navItems = [
-  { label: "Home", to: "/" },
-  { label: "Jobs", to: "/jobs" },
-  { label: "Destinations", to: "/destinations" },
-  { label: "Services", to: "/services" },
-  { label: "About", to: "/about" },
+  { label: "Home", href: "/" },
+  { label: "Jobs", href: "/jobs" },
+  { label: "Destinations", href: "/destinations" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
 ] as const;
 
 export function SiteHeader() {
@@ -57,7 +56,7 @@ export function SiteHeader() {
       </div>
 
       <div className="container mx-auto flex h-[74px] items-center justify-between gap-4 px-4 sm:px-6">
-        <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setMenuOpen(false)}>
+        <a href="/" className="flex min-w-0 items-center gap-3" onClick={() => setMenuOpen(false)}>
           <span className="relative hidden h-9 w-9 rotate-45 items-center justify-center border border-primary sm:flex" aria-hidden="true">
             <span className="h-2.5 w-2.5 -rotate-45 bg-primary" />
           </span>
@@ -69,30 +68,28 @@ export function SiteHeader() {
               Kenya Ltd
             </span>
           </span>
-        </Link>
+        </a>
 
         <nav className="hidden items-center gap-5 xl:flex">
           {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              activeProps={{ className: "text-primary font-semibold" }}
-              activeOptions={{ exact: item.to === "/" }}
+            <a
+              key={item.href}
+              href={item.href}
               className="text-[11px] font-medium uppercase tracking-[0.08em] text-sidebar-foreground/75 transition-colors hover:text-primary"
             >
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 xl:flex">
           <Button variant="ghost" size="icon" className="text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-primary" asChild title={session?.user ? "Dashboard" : "Sign in"}>
-            <Link to={session?.user ? "/dashboard" : "/auth"} aria-label={session?.user ? "Dashboard" : "Sign in"}>
+            <a href={session?.user ? "/dashboard" : "/auth"} aria-label={session?.user ? "Dashboard" : "Sign in"}>
               <User className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
           <Button className="h-10 rounded-none px-5 text-[10px] font-semibold uppercase tracking-[0.14em]" asChild>
-            <Link to="/jobs">Apply now</Link>
+            <a href="/jobs">Apply now</a>
           </Button>
         </div>
 
@@ -112,16 +109,14 @@ export function SiteHeader() {
         <div className="max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-sidebar-border bg-sidebar px-4 py-4 xl:hidden">
           <nav className="flex flex-col">
             {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                activeProps={{ className: "text-primary" }}
-                activeOptions={{ exact: item.to === "/" }}
+              <a
+                key={item.href}
+                href={item.href}
                 className="border-b border-sidebar-border py-3 text-sm font-medium uppercase text-sidebar-foreground/85 hover:text-primary"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </nav>
           <div className="my-4 space-y-3 border-b border-sidebar-border pb-4 text-xs text-sidebar-foreground/70">
@@ -132,7 +127,7 @@ export function SiteHeader() {
             {session?.user ? (
               <>
                 <Button asChild onClick={() => setMenuOpen(false)}>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <a href="/dashboard">Dashboard</a>
                 </Button>
                 <Button variant="outline" onClick={handleSignOut}>
                   <LogOut className="h-4 w-4" /> Sign out
@@ -141,10 +136,10 @@ export function SiteHeader() {
             ) : (
               <>
                 <Button asChild onClick={() => setMenuOpen(false)}>
-                  <Link to="/jobs">Apply now</Link>
+                  <a href="/jobs">Apply now</a>
                 </Button>
-                <Button variant="outline" asChild onClick={() => setMenuOpen(false)}>
-                  <Link to="/auth">Sign in</Link>
+                <Button variant="outline" className="border-sidebar-foreground/30 bg-transparent text-sidebar-foreground hover:bg-sidebar-foreground hover:text-sidebar" asChild onClick={() => setMenuOpen(false)}>
+                  <a href="/auth">Sign in</a>
                 </Button>
               </>
             )}
