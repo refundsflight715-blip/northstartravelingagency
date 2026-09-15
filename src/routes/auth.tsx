@@ -125,6 +125,7 @@ function AuthPage() {
                 loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
+                onToggleMode={() => setMode("signup")}
               />
             </TabsContent>
             <TabsContent value="signup">
@@ -137,6 +138,7 @@ function AuthPage() {
                 loading={loading || !ready}
                 onSubmit={handleSubmit(onSubmit)}
                 googleSignIn={signInWithGoogle}
+                onToggleMode={() => setMode("signin")}
               />
             </TabsContent>
           </Tabs>
