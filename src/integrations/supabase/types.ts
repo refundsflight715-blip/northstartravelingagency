@@ -17,6 +17,10 @@ export type Database = {
       applications: {
         Row: {
           admin_notes: string | null
+          applicant_country: string | null
+          applicant_email: string | null
+          applicant_name: string | null
+          applicant_phone: string | null
           cover_letter: string | null
           created_at: string
           id: string
@@ -27,6 +31,10 @@ export type Database = {
         }
         Insert: {
           admin_notes?: string | null
+          applicant_country?: string | null
+          applicant_email?: string | null
+          applicant_name?: string | null
+          applicant_phone?: string | null
           cover_letter?: string | null
           created_at?: string
           id?: string
@@ -37,6 +45,10 @@ export type Database = {
         }
         Update: {
           admin_notes?: string | null
+          applicant_country?: string | null
+          applicant_email?: string | null
+          applicant_name?: string | null
+          applicant_phone?: string | null
           cover_letter?: string | null
           created_at?: string
           id?: string
@@ -120,6 +132,7 @@ export type Database = {
           status: string | null
           title: string
           updated_at: string
+          vacancies: number | null
         }
         Insert: {
           category: string
@@ -137,6 +150,7 @@ export type Database = {
           status?: string | null
           title: string
           updated_at?: string
+          vacancies?: number | null
         }
         Update: {
           category?: string
@@ -154,6 +168,7 @@ export type Database = {
           status?: string | null
           title?: string
           updated_at?: string
+          vacancies?: number | null
         }
         Relationships: []
       }
