@@ -2,12 +2,25 @@ import { z } from "zod";
 
 export const jobStatusSchema = z.enum(["draft", "published", "closed"]);
 export const applicationStatusSchema = z.enum([
-  "pending",
-  "reviewing",
-  "shortlisted",
-  "rejected",
-  "hired",
+  "new",
+  "under_review",
+  "interview",
+  "documents_required",
+  "processing",
+  "completed",
 ]);
+
+export const applicationStatusLabels: Record<
+  z.infer<typeof applicationStatusSchema>,
+  string
+> = {
+  new: "New",
+  under_review: "Under Review",
+  interview: "Interview",
+  documents_required: "Documents Required",
+  processing: "Processing",
+  completed: "Completed",
+};
 export const appRoleSchema = z.enum(["candidate", "employer", "admin"]);
 
 export const jobSchema = z.object({
@@ -22,11 +35,16 @@ export const jobSchema = z.object({
   status: jobStatusSchema.default("draft"),
   featured: z.boolean().default(false),
   expires_at: z.string().optional(),
+  vacancies: z.number().int().positive().optional(),
 });
 
 export const applicationSchema = z.object({
   job_id: z.string().uuid("Invalid job"),
-  cover_letter: z.string().min(10, "Cover letter must be at least 10 characters"),
+  applicant_name: z.string().trim().min(2, "Full name is required").max(120),
+  applicant_email: z.string().trim().email("Valid email is required").max(255),
+  applicant_phone: z.string().trim().min(6, "Phone number is required").max(30),
+  applicant_country: z.string().trim().min(2, "Country of residence is required").max(80),
+  cover_letter: z.string().trim().min(10, "Please write at least 10 characters").max(4000),
 });
 
 export const applicationStatusUpdateSchema = z.object({
