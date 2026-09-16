@@ -125,17 +125,52 @@ export const destinations: Destination[] = [
   },
 ];
 
+/** Job categories shown in filters and the admin job form. Edit freely. */
 export const jobCategories = [
-  "Drivers",
-  "Cleaners",
-  "Caregivers",
-  "Hotel & Hospitality",
-  "Construction & Skilled Trades",
-  "Warehouse & Packing",
-  "Farm & Agricultural Work",
-  "Kitchen & Catering",
-  "Security",
-  "Technicians",
-  "Nanny & Domestic Work",
-  "Other Available Positions",
+  "Caregiver",
+  "Driver",
+  "Nanny",
+  "Security Guard",
+  "Cleaner",
+  "Farm Worker",
+  "Warehouse Worker",
+  "Hotel Staff",
+  "Waiter / Waitress",
+  "Construction Worker",
+  "Healthcare Assistant",
+  "Other Jobs",
+];
+
+/** Countries visitors can browse by. Add or remove entries here. */
+export const jobCountries = [
+  "Canada",
+  "Australia",
+  "Netherlands",
+  "Germany",
+  "Luxembourg",
+  "United Kingdom",
+  "Ireland",
+  "France",
+  "Switzerland",
+  "Malta",
+  "UAE / Dubai",
+  "Qatar",
+  "Saudi Arabia",
+  "Oman",
+  "Bahrain",
+  "Kuwait",
+  "Malaysia",
+  "Mauritius",
+  "New Zealand",
+  "Turkey",
+  "Poland",
+];
+
+/** Employment types used on job listings. */
+export const employmentTypes = [
+  "full-time",
+  "part-time",
+  "contract",
+  "seasonal",
+  "temporary",
 ];
