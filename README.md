@@ -1,14 +1,30 @@
-# Welcome to your Lovable project
+# Star Navigator
+
+NorthStarTravelingAgency provides job recruitment and travel-related assistance, including:
+
+🌍 Overseas job opportunities
+
+💼 Recruitment for jobs such as cleaners, drivers, caregivers, hotel staff, construction workers and farm workers
+
+📄 Application and document guidance
+
+✈️ Visa and travel-process guidance
+
+🏠 Assistance with accommodation/travel arrangements where applicable
+
+📋 Job eligibility and application information
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://northstartravelingagency.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/444a6a30-1a87-4078-95ce-2b7b2d35e223).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +36,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
