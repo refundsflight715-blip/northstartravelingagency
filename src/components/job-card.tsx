@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Briefcase, DollarSign, Clock } from "lucide-react";
+import { MapPin, Briefcase, DollarSign, Clock, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,9 @@ interface Job {
   salary?: string | null;
   job_type?: string | null;
   featured?: boolean | null;
+  description?: string | null;
+  requirements?: string | null;
+  vacancies?: number | null;
 }
 
 export function JobCard({ job }: { job: Job }) {
@@ -32,7 +35,7 @@ export function JobCard({ job }: { job: Job }) {
         <p className="text-sm text-muted-foreground">{job.category}</p>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-3">
-        <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+        <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <MapPin className="h-4 w-4 text-primary" />
             {job.country}
@@ -45,17 +48,39 @@ export function JobCard({ job }: { job: Job }) {
             </span>
           )}
           {job.job_type && (
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 capitalize">
               <Clock className="h-4 w-4 text-primary" />
               {job.job_type}
             </span>
           )}
+          {job.vacancies ? (
+            <span className="flex items-center gap-1">
+              <Users className="h-4 w-4 text-primary" />
+              {job.vacancies} {job.vacancies === 1 ? "vacancy" : "vacancies"}
+            </span>
+          ) : null}
         </div>
-        <div className="mt-auto pt-4">
+
+        {job.description && (
+          <p className="line-clamp-3 text-sm text-muted-foreground">{job.description}</p>
+        )}
+        {job.requirements && (
+          <p className="line-clamp-2 text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Requirements: </span>
+            {job.requirements}
+          </p>
+        )}
+
+        <div className="mt-auto grid gap-2 pt-4 sm:grid-cols-2">
           <Button variant="outline" size="sm" className="w-full" asChild>
             <Link to="/jobs/$id" params={{ id: job.id }}>
               <Briefcase className="mr-2 h-4 w-4" />
-              View details
+              View job
+            </Link>
+          </Button>
+          <Button size="sm" className="w-full" asChild>
+            <Link to="/jobs/$id/apply" params={{ id: job.id }}>
+              Apply now
             </Link>
           </Button>
         </div>
