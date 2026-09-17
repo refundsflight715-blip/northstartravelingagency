@@ -21,10 +21,16 @@ export function FaqSection({
 }: FaqSectionProps) {
   return (
     <section className={className}>
-      <div className="mx-auto max-w-3xl text-center">
-        <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">{title}</h2>
-        {intro && <p className="mt-4 text-muted-foreground">{intro}</p>}
-      </div>
+      {(title || intro) && (
+        <div className="mx-auto max-w-3xl text-center">
+          {title && (
+            <h2 className="font-display text-3xl font-bold text-foreground md:text-4xl">
+              {title}
+            </h2>
+          )}
+          {intro && <p className="mt-4 text-muted-foreground">{intro}</p>}
+        </div>
+      )}
       <div className="mx-auto mt-8 max-w-3xl">
         <Accordion type="single" collapsible className="w-full">
           {items.map((f, i) => (

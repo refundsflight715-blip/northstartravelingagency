@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import type { Database } from "@/integrations/supabase/types";
+import { jobCategories, jobCountries, employmentTypes } from "@/lib/site";
 
 const adminJobFormSchema = z.object({
   title: z.string().min(2, "Title is required"),
@@ -26,6 +27,7 @@ const adminJobFormSchema = z.object({
   description: z.string().min(10, "Description must be at least 10 characters"),
   requirements: z.string().min(10, "Requirements must be at least 10 characters"),
   salary: z.string().optional(),
+  vacancies: z.string().optional(),
   job_type: z.string().optional(),
   status: z.enum(["draft", "published", "closed"]).optional(),
   featured: z.boolean().optional(),
@@ -64,6 +66,7 @@ const defaultValues: AdminJobFormValues = {
   description: "",
   requirements: "",
   salary: "",
+  vacancies: "",
   job_type: "full-time",
   status: "draft",
   featured: false,
@@ -101,6 +104,7 @@ function AdminJobsPage() {
           description: job.description,
           requirements: job.requirements,
           salary: job.salary ?? "",
+          vacancies: job.vacancies != null ? String(job.vacancies) : "",
           job_type: (job.job_type as AdminJobFormValues["job_type"]) ?? "full-time",
           status: (job.status as AdminJobFormValues["status"]) ?? "draft",
           featured: job.featured ?? false,
@@ -122,6 +126,7 @@ function AdminJobsPage() {
         description: values.description,
         requirements: values.requirements,
         salary: values.salary,
+        vacancies: values.vacancies ? Number(values.vacancies) : undefined,
         job_type: values.job_type || "full-time",
         status: (values.status as JobInput["status"]) || "draft",
         featured: values.featured ?? false,
@@ -183,28 +188,47 @@ function AdminJobsPage() {
                 </div>
                 <div className="space-y-2">
                   <Label>Category</Label>
-                  <Input {...register("category")} />
+                  <Input list="admin-job-categories" {...register("category")} />
+                  <datalist id="admin-job-categories">
+                    {jobCategories.map((c) => (
+                      <option key={c} value={c} />
+                    ))}
+                  </datalist>
                   {errors.category && <p className="text-sm text-destructive">{errors.category.message}</p>}
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label>Country</Label>
-                  <Input {...register("country")} />
+                  <Input list="admin-job-countries" {...register("country")} />
+                  <datalist id="admin-job-countries">
+                    {jobCountries.map((c) => (
+                      <option key={c} value={c} />
+                    ))}
+                  </datalist>
                 </div>
                 <div className="space-y-2">
                   <Label>Location</Label>
                   <Input {...register("location")} />
                 </div>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-3">
                 <div className="space-y-2">
-                  <Label>Salary</Label>
+                  <Label>Salary (optional)</Label>
                   <Input {...register("salary")} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Job type</Label>
-                  <Input {...register("job_type")} />
+                  <Label>Vacancies (optional)</Label>
+                  <Input type="number" min={1} {...register("vacancies")} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Employment type</Label>
+                  <Input list="admin-job-types" {...register("job_type")} />
+                  <datalist id="admin-job-types">
+                    {employmentTypes.map((t) => (
+                      <option key={t} value={t} />
+                    ))}
+                  </datalist>
                 </div>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">

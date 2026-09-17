@@ -74,6 +74,12 @@ function JobDetailPage() {
                 {job.job_type}
               </span>
             )}
+            {job.vacancies ? (
+              <span className="flex items-center gap-1">
+                <Users className="h-4 w-4 text-primary" />
+                {job.vacancies} {job.vacancies === 1 ? "vacancy" : "vacancies"}
+              </span>
+            ) : null}
             {job.posted_at && (
               <span className="flex items-center gap-1">
                 <Calendar className="h-4 w-4 text-primary" />
