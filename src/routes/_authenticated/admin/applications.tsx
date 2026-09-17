@@ -103,7 +103,7 @@ function AdminApplicationsPage() {
                       <SelectContent>
                         {applicationStatusSchema.options.map((s) => (
                           <SelectItem key={s} value={s}>
-                            {s}
+                            {applicationStatusLabels[s]}
                           </SelectItem>
                         ))}
                       </SelectContent>
