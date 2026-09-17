@@ -47,6 +47,11 @@ export const createApplication = createServerFn({ method: "POST" })
         user_id: context.userId,
         job_id: data.job_id,
         cover_letter: data.cover_letter,
+        applicant_name: data.applicant_name,
+        applicant_email: data.applicant_email,
+        applicant_phone: data.applicant_phone,
+        applicant_country: data.applicant_country,
+        status: "new",
       })
       .select()
       .single();
