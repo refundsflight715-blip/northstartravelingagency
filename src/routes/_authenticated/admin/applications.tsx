@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { getAllApplications, updateApplicationStatus } from "@/lib/applications.functions";
-import { applicationStatusSchema } from "@/lib/schemas";
+import { applicationStatusSchema, applicationStatusLabels } from "@/lib/schemas";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -53,38 +53,50 @@ function AdminApplicationsPage() {
         {applications.map((app) => {
           const job = app.jobs as unknown as { title: string; country: string; category: string } | null;
           const profile = app.profiles as unknown as { full_name: string; phone: string; country: string } | null;
+          const name = app.applicant_name ?? profile?.full_name ?? "Applicant";
+          const phone = app.applicant_phone ?? profile?.phone ?? "—";
+          const email = app.applicant_email ?? "—";
+          const fromCountry = app.applicant_country ?? profile?.country ?? "—";
+          const statusKey = (app.status ?? "new") as keyof typeof applicationStatusLabels;
           return (
             <Card key={app.id}>
               <CardContent className="space-y-4 py-4">
-                <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
                   <div>
                     <h3 className="font-semibold text-foreground">{job?.title}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {profile?.full_name} &middot; {profile?.country} &middot; {profile?.phone}
+                      {job?.country} &middot; {job?.category}
+                    </p>
+                    <p className="mt-2 text-sm text-foreground">{name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {phone} &middot; {email} &middot; From: {fromCountry}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Submitted {new Date(app.created_at).toLocaleString()}
                     </p>
                   </div>
                   <Badge
-                    className={`capitalize ${
-                      app.status === "hired"
+                    className={
+                      statusKey === "completed"
                         ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                        : app.status === "rejected"
-                          ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
-                          : app.status === "shortlisted"
-                            ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                        : statusKey === "interview"
+                          ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
+                          : statusKey === "documents_required"
+                            ? "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100"
                             : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-                    }`}
+                    }
                   >
-                    {app.status}
+                    {applicationStatusLabels[statusKey] ?? app.status}
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-foreground">Cover letter</p>
+                  <p className="text-sm font-medium text-foreground">Application details</p>
                   <p className="mt-1 whitespace-pre-line text-sm text-muted-foreground">{app.cover_letter}</p>
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div>
                     <label className="text-sm font-medium text-foreground">Update status</label>
-                    <Select value={app.status ?? "pending"} onValueChange={(v) => handleStatusChange(app.id, v)}>
+                    <Select value={app.status ?? "new"} onValueChange={(v) => handleStatusChange(app.id, v)}>
                       <SelectTrigger className="mt-1 w-full">
                         <SelectValue />
                       </SelectTrigger>
