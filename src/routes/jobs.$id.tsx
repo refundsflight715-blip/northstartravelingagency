@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { MapPin, DollarSign, Clock, Calendar, Briefcase, ArrowLeft, Phone, MessageCircle } from "lucide-react";
+import { MapPin, DollarSign, Clock, Calendar, Briefcase, ArrowLeft, Phone, MessageCircle, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
