@@ -16,7 +16,17 @@ interface Job {
   description?: string | null;
   requirements?: string | null;
   vacancies?: number | null;
+  required_experience?: string | null;
+  qualifications?: string | null;
+  responsibilities?: string | null;
+  accommodation?: string | null;
+  transport?: string | null;
+  medical_coverage?: string | null;
+  contract_duration?: string | null;
+  visa_info?: string | null;
 }
+
+const filled = (value?: string | null) => (value && value.trim() ? value.trim() : null);
 
 export function JobCard({ job }: { job: Job }) {
   return (

@@ -291,6 +291,45 @@ function AdminJobsPage() {
                 <Textarea rows={4} {...register("requirements")} />
                 {errors.requirements && <p className="text-sm text-destructive">{errors.requirements.message}</p>}
               </div>
+              <div className="space-y-4 rounded-lg border border-border p-4">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Additional details (all optional)
+                </h3>
+                <div className="space-y-2">
+                  <Label>Required experience</Label>
+                  <Textarea rows={3} {...register("required_experience")} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Qualifications</Label>
+                  <Textarea rows={3} {...register("qualifications")} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Responsibilities</Label>
+                  <Textarea rows={3} {...register("responsibilities")} />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>Accommodation</Label>
+                    <Input {...register("accommodation")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Transport</Label>
+                    <Input {...register("transport")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Medical coverage</Label>
+                    <Input {...register("medical_coverage")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Contract duration</Label>
+                    <Input {...register("contract_duration")} />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label>Visa / work permit information</Label>
+                  <Textarea rows={3} {...register("visa_info")} />
+                </div>
+              </div>
               <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Saving..." : "Save job"}
               </Button>
