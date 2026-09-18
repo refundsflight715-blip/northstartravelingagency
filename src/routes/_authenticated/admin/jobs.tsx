@@ -125,6 +125,14 @@ function AdminJobsPage() {
           status: (job.status as AdminJobFormValues["status"]) ?? "draft",
           featured: job.featured ?? false,
           expires_at: job.expires_at ?? "",
+          required_experience: job.required_experience ?? "",
+          qualifications: job.qualifications ?? "",
+          responsibilities: job.responsibilities ?? "",
+          accommodation: job.accommodation ?? "",
+          transport: job.transport ?? "",
+          medical_coverage: job.medical_coverage ?? "",
+          contract_duration: job.contract_duration ?? "",
+          visa_info: job.visa_info ?? "",
         });
       }
     } else {
@@ -147,6 +155,14 @@ function AdminJobsPage() {
         status: (values.status as JobInput["status"]) || "draft",
         featured: values.featured ?? false,
         expires_at: values.expires_at,
+        required_experience: values.required_experience,
+        qualifications: values.qualifications,
+        responsibilities: values.responsibilities,
+        accommodation: values.accommodation,
+        transport: values.transport,
+        medical_coverage: values.medical_coverage,
+        contract_duration: values.contract_duration,
+        visa_info: values.visa_info,
       };
       if (editingId) {
         await updateFn({ data: { ...payload, id: editingId } });
