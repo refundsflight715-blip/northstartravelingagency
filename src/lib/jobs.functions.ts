@@ -28,7 +28,7 @@ export const getPublishedJobs = createServerFn({ method: "GET" })
     }
     if (data.search) {
       query = query.or(
-        `title.ilike.%${data.search}%,description.ilike.%${data.search}%,location.ilike.%${data.search}%`
+        `title.ilike.%${data.search}%,description.ilike.%${data.search}%,location.ilike.%${data.search}%,qualifications.ilike.%${data.search}%,responsibilities.ilike.%${data.search}%`
       );
     }
 
@@ -77,6 +77,14 @@ export const createJob = createServerFn({ method: "POST" })
       status: data.status,
       featured: data.featured,
       expires_at: data.expires_at ?? null,
+      required_experience: data.required_experience ?? null,
+      qualifications: data.qualifications ?? null,
+      responsibilities: data.responsibilities ?? null,
+      accommodation: data.accommodation ?? null,
+      transport: data.transport ?? null,
+      medical_coverage: data.medical_coverage ?? null,
+      contract_duration: data.contract_duration ?? null,
+      visa_info: data.visa_info ?? null,
       posted_at: data.status === "published" ? new Date().toISOString() : null,
     };
     const { data: job, error } = await context.supabase
