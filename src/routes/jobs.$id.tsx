@@ -100,6 +100,25 @@ function JobDetailPage() {
                   {job.requirements}
                 </p>
               </div>
+              {(
+                [
+                  ["Required experience", job.required_experience],
+                  ["Qualifications", job.qualifications],
+                  ["Responsibilities", job.responsibilities],
+                  ["Accommodation", job.accommodation],
+                  ["Transport", job.transport],
+                  ["Medical coverage", job.medical_coverage],
+                  ["Contract duration", job.contract_duration],
+                  ["Visa / work permit information", job.visa_info],
+                ] as const
+              )
+                .filter(([, value]) => value && value.trim())
+                .map(([label, value]) => (
+                  <div key={label}>
+                    <h2 className="text-xl font-semibold text-foreground">{label}</h2>
+                    <p className="mt-2 whitespace-pre-line text-muted-foreground">{value}</p>
+                  </div>
+                ))}
             </CardContent>
           </Card>
         </div>
