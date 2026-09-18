@@ -32,6 +32,14 @@ const adminJobFormSchema = z.object({
   status: z.enum(["draft", "published", "closed"]).optional(),
   featured: z.boolean().optional(),
   expires_at: z.string().optional(),
+  required_experience: z.string().optional(),
+  qualifications: z.string().optional(),
+  responsibilities: z.string().optional(),
+  accommodation: z.string().optional(),
+  transport: z.string().optional(),
+  medical_coverage: z.string().optional(),
+  contract_duration: z.string().optional(),
+  visa_info: z.string().optional(),
 });
 
 type AdminJobFormValues = z.infer<typeof adminJobFormSchema>;
@@ -71,6 +79,14 @@ const defaultValues: AdminJobFormValues = {
   status: "draft",
   featured: false,
   expires_at: "",
+  required_experience: "",
+  qualifications: "",
+  responsibilities: "",
+  accommodation: "",
+  transport: "",
+  medical_coverage: "",
+  contract_duration: "",
+  visa_info: "",
 };
 
 function AdminJobsPage() {
