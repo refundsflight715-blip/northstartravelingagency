@@ -122,10 +122,18 @@ export const updateJob = createServerFn({ method: "POST" })
       status: rest.status,
       featured: rest.featured,
       expires_at: rest.expires_at ?? null,
+      required_experience: rest.required_experience ?? null,
+      qualifications: rest.qualifications ?? null,
+      responsibilities: rest.responsibilities ?? null,
+      accommodation: rest.accommodation ?? null,
+      transport: rest.transport ?? null,
+      medical_coverage: rest.medical_coverage ?? null,
+      contract_duration: rest.contract_duration ?? null,
+      visa_info: rest.visa_info ?? null,
       posted_at:
-        rest.status === "published" && !existing?.posted_at
-          ? new Date().toISOString()
-          : null,
+        rest.status === "published"
+          ? (existing?.posted_at ?? new Date().toISOString())
+          : (existing?.posted_at ?? null),
     };
     const { data: job, error } = await context.supabase
       .from("jobs")
