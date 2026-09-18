@@ -16,7 +16,17 @@ interface Job {
   description?: string | null;
   requirements?: string | null;
   vacancies?: number | null;
+  required_experience?: string | null;
+  qualifications?: string | null;
+  responsibilities?: string | null;
+  accommodation?: string | null;
+  transport?: string | null;
+  medical_coverage?: string | null;
+  contract_duration?: string | null;
+  visa_info?: string | null;
 }
+
+const filled = (value?: string | null) => (value && value.trim() ? value.trim() : null);
 
 export function JobCard({ job }: { job: Job }) {
   return (
@@ -61,7 +71,22 @@ export function JobCard({ job }: { job: Job }) {
           ) : null}
         </div>
 
-        {job.description && (
+        {(filled(job.contract_duration) || filled(job.accommodation)) && (
+          <div className="flex flex-wrap gap-2">
+            {filled(job.contract_duration) && (
+              <Badge variant="secondary" className="font-normal">
+                Contract: {filled(job.contract_duration)}
+              </Badge>
+            )}
+            {filled(job.accommodation) && (
+              <Badge variant="secondary" className="font-normal">
+                Accommodation: {filled(job.accommodation)}
+              </Badge>
+            )}
+          </div>
+        )}
+
+        {filled(job.description) && (
           <p className="line-clamp-3 text-sm text-muted-foreground">{job.description}</p>
         )}
         {job.requirements && (

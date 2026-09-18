@@ -32,6 +32,14 @@ const adminJobFormSchema = z.object({
   status: z.enum(["draft", "published", "closed"]).optional(),
   featured: z.boolean().optional(),
   expires_at: z.string().optional(),
+  required_experience: z.string().optional(),
+  qualifications: z.string().optional(),
+  responsibilities: z.string().optional(),
+  accommodation: z.string().optional(),
+  transport: z.string().optional(),
+  medical_coverage: z.string().optional(),
+  contract_duration: z.string().optional(),
+  visa_info: z.string().optional(),
 });
 
 type AdminJobFormValues = z.infer<typeof adminJobFormSchema>;
@@ -71,6 +79,14 @@ const defaultValues: AdminJobFormValues = {
   status: "draft",
   featured: false,
   expires_at: "",
+  required_experience: "",
+  qualifications: "",
+  responsibilities: "",
+  accommodation: "",
+  transport: "",
+  medical_coverage: "",
+  contract_duration: "",
+  visa_info: "",
 };
 
 function AdminJobsPage() {
@@ -109,6 +125,14 @@ function AdminJobsPage() {
           status: (job.status as AdminJobFormValues["status"]) ?? "draft",
           featured: job.featured ?? false,
           expires_at: job.expires_at ?? "",
+          required_experience: job.required_experience ?? "",
+          qualifications: job.qualifications ?? "",
+          responsibilities: job.responsibilities ?? "",
+          accommodation: job.accommodation ?? "",
+          transport: job.transport ?? "",
+          medical_coverage: job.medical_coverage ?? "",
+          contract_duration: job.contract_duration ?? "",
+          visa_info: job.visa_info ?? "",
         });
       }
     } else {
@@ -131,6 +155,14 @@ function AdminJobsPage() {
         status: (values.status as JobInput["status"]) || "draft",
         featured: values.featured ?? false,
         expires_at: values.expires_at,
+        required_experience: values.required_experience,
+        qualifications: values.qualifications,
+        responsibilities: values.responsibilities,
+        accommodation: values.accommodation,
+        transport: values.transport,
+        medical_coverage: values.medical_coverage,
+        contract_duration: values.contract_duration,
+        visa_info: values.visa_info,
       };
       if (editingId) {
         await updateFn({ data: { ...payload, id: editingId } });
@@ -258,6 +290,45 @@ function AdminJobsPage() {
                 <Label>Requirements</Label>
                 <Textarea rows={4} {...register("requirements")} />
                 {errors.requirements && <p className="text-sm text-destructive">{errors.requirements.message}</p>}
+              </div>
+              <div className="space-y-4 rounded-lg border border-border p-4">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Additional details (all optional)
+                </h3>
+                <div className="space-y-2">
+                  <Label>Required experience</Label>
+                  <Textarea rows={3} {...register("required_experience")} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Qualifications</Label>
+                  <Textarea rows={3} {...register("qualifications")} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Responsibilities</Label>
+                  <Textarea rows={3} {...register("responsibilities")} />
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>Accommodation</Label>
+                    <Input {...register("accommodation")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Transport</Label>
+                    <Input {...register("transport")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Medical coverage</Label>
+                    <Input {...register("medical_coverage")} />
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Contract duration</Label>
+                    <Input {...register("contract_duration")} />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label>Visa / work permit information</Label>
+                  <Textarea rows={3} {...register("visa_info")} />
+                </div>
               </div>
               <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? "Saving..." : "Save job"}

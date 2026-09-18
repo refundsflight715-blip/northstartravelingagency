@@ -36,6 +36,14 @@ export const jobSchema = z.object({
   featured: z.boolean().default(false),
   expires_at: z.string().optional(),
   vacancies: z.number().int().positive().optional(),
+  required_experience: z.string().optional(),
+  qualifications: z.string().optional(),
+  responsibilities: z.string().optional(),
+  accommodation: z.string().optional(),
+  transport: z.string().optional(),
+  medical_coverage: z.string().optional(),
+  contract_duration: z.string().optional(),
+  visa_info: z.string().optional(),
 });
 
 export const applicationSchema = z.object({

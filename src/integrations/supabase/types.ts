@@ -117,7 +117,9 @@ export type Database = {
       }
       jobs: {
         Row: {
+          accommodation: string | null
           category: string
+          contract_duration: string | null
           country: string
           created_at: string
           description: string
@@ -126,16 +128,24 @@ export type Database = {
           id: string
           job_type: string | null
           location: string | null
+          medical_coverage: string | null
           posted_at: string | null
+          qualifications: string | null
+          required_experience: string | null
           requirements: string
+          responsibilities: string | null
           salary: string | null
           status: string | null
           title: string
+          transport: string | null
           updated_at: string
           vacancies: number | null
+          visa_info: string | null
         }
         Insert: {
+          accommodation?: string | null
           category: string
+          contract_duration?: string | null
           country: string
           created_at?: string
           description: string
@@ -144,16 +154,24 @@ export type Database = {
           id?: string
           job_type?: string | null
           location?: string | null
+          medical_coverage?: string | null
           posted_at?: string | null
+          qualifications?: string | null
+          required_experience?: string | null
           requirements: string
+          responsibilities?: string | null
           salary?: string | null
           status?: string | null
           title: string
+          transport?: string | null
           updated_at?: string
           vacancies?: number | null
+          visa_info?: string | null
         }
         Update: {
+          accommodation?: string | null
           category?: string
+          contract_duration?: string | null
           country?: string
           created_at?: string
           description?: string
@@ -162,13 +180,19 @@ export type Database = {
           id?: string
           job_type?: string | null
           location?: string | null
+          medical_coverage?: string | null
           posted_at?: string | null
+          qualifications?: string | null
+          required_experience?: string | null
           requirements?: string
+          responsibilities?: string | null
           salary?: string | null
           status?: string | null
           title?: string
+          transport?: string | null
           updated_at?: string
           vacancies?: number | null
+          visa_info?: string | null
         }
         Relationships: []
       }
