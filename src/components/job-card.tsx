@@ -71,7 +71,22 @@ export function JobCard({ job }: { job: Job }) {
           ) : null}
         </div>
 
-        {job.description && (
+        {(filled(job.contract_duration) || filled(job.accommodation)) && (
+          <div className="flex flex-wrap gap-2">
+            {filled(job.contract_duration) && (
+              <Badge variant="secondary" className="font-normal">
+                Contract: {filled(job.contract_duration)}
+              </Badge>
+            )}
+            {filled(job.accommodation) && (
+              <Badge variant="secondary" className="font-normal">
+                Accommodation: {filled(job.accommodation)}
+              </Badge>
+            )}
+          </div>
+        )}
+
+        {filled(job.description) && (
           <p className="line-clamp-3 text-sm text-muted-foreground">{job.description}</p>
         )}
         {job.requirements && (
