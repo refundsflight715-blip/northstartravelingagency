@@ -1,8 +1,40 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { jobSchema } from "./schemas";
+import { getCountryBySlug } from "./site";
+
+export function slugifyTitle(value: string) {
+  return (
+    value
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 80) || "job"
+  );
+}
+
+/** Returns a slug unique across the jobs table, appending -2, -3 ... on collisions. */
+async function uniqueJobSlug(
+  client: SupabaseClient<any, any, any>,
+  title: string,
+  ignoreId?: string
+) {
+  const base = slugifyTitle(title);
+  let candidate = base;
+  for (let i = 2; i < 200; i += 1) {
+    let query = client.from("jobs").select("id").eq("slug", candidate).limit(1);
+    if (ignoreId) query = query.neq("id", ignoreId);
+    const { data } = await query;
+    if (!data || data.length === 0) return candidate;
+    candidate = `${base}-${i}`;
+  }
+  return `${base}-${Date.now()}`;
+}
 
 const jobFilterSchema = z.object({
   category: z.string().optional(),
@@ -65,6 +97,7 @@ export const createJob = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => jobSchema.parse(data))
   .handler(async ({ context, data }) => {
     const insert = {
+      slug: await uniqueJobSlug(context.supabase, data.title),
       title: data.title,
       category: data.category,
       country: data.country,
@@ -105,11 +138,14 @@ export const updateJob = createServerFn({ method: "POST" })
     const { id, ...rest } = data;
     const { data: existing } = await context.supabase
       .from("jobs")
-      .select("posted_at")
+      .select("posted_at, slug, title")
       .eq("id", id)
       .single();
 
+    const needsSlug = !existing?.slug || existing.title !== rest.title;
+
     const update = {
+      slug: needsSlug ? await uniqueJobSlug(context.supabase, rest.title, id) : existing!.slug,
       title: rest.title,
       category: rest.category,
       country: rest.country,
@@ -152,4 +188,43 @@ export const deleteJob = createServerFn({ method: "POST" })
     const { error } = await context.supabase.from("jobs").delete().eq("id", data.id);
     if (error) throw new Error(error.message);
     return { success: true };
+  });
+
+export const getJobsByCountrySlug = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ country_slug: z.string() }).parse(data))
+  .handler(async ({ data }) => {
+    const country = getCountryBySlug(data.country_slug);
+    if (!country) return null;
+
+    const { data: jobs, error } = await supabase
+      .from("jobs")
+      .select("*")
+      .eq("status", "published")
+      .in("country", country.aliases)
+      .order("featured", { ascending: false })
+      .order("posted_at", { ascending: false });
+    if (error) throw new Error(error.message);
+    return jobs ?? [];
+  });
+
+export const getJobBySlug = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ job_slug: z.string() }).parse(data))
+  .handler(async ({ data }) => {
+    const { data: bySlug } = await supabase
+      .from("jobs")
+      .select("*")
+      .eq("slug", data.job_slug)
+      .limit(1);
+    if (bySlug && bySlug.length > 0) return bySlug[0];
+
+    // Fallback for jobs created before slugs existed (URL still carries the id).
+    if (/^[0-9a-f-]{36}$/i.test(data.job_slug)) {
+      const { data: byId } = await supabase
+        .from("jobs")
+        .select("*")
+        .eq("id", data.job_slug)
+        .limit(1);
+      if (byId && byId.length > 0) return byId[0];
+    }
+    return null;
   });

@@ -1,38 +1,55 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Notice } from "@/components/notice";
 import { applicationSchema, type ApplicationInput } from "@/lib/schemas";
-import { getJobById } from "@/lib/jobs.functions";
+import { getJobBySlug } from "@/lib/jobs.functions";
 import { createApplication } from "@/lib/applications.functions";
-import { applicationNotice, site, jobCountries } from "@/lib/site";
+import {
+  applicationNotice,
+  site,
+  jobCountries,
+  getCountryBySlug,
+  getCountryForJobCountryValue,
+} from "@/lib/site";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 
-const jobQueryOptions = (id: string) =>
+const jobQueryOptions = (slug: string) =>
   queryOptions({
-    queryKey: ["job", id],
-    queryFn: () => getJobById({ data: { id } }),
+    queryKey: ["job-by-slug", slug],
+    queryFn: () => getJobBySlug({ data: { job_slug: slug } }),
   });
 
-export const Route = createFileRoute("/jobs/$id/apply")({
+export const Route = createFileRoute("/jobs/$country/$job/apply")({
   head: () => ({
     meta: [
       { title: `Apply for a Job | ${site.shortName}` },
       {
         name: "description",
-        content: "Submit your application for an overseas opportunity with NorthStarTravelingAgency.",
+        content: "Submit your application for an overseas opportunity with NorthStarAgency.",
       },
       { property: "og:title", content: `Apply for a Job | ${site.shortName}` },
-      { property: "og:description", content: "Submit your application for an overseas opportunity." },
+      {
+        property: "og:description",
+        content: "Submit your application for an overseas opportunity.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -42,20 +59,27 @@ export const Route = createFileRoute("/jobs/$id/apply")({
       data: { session },
     } = await context.queryClient.fetchQuery({
       queryKey: ["session"],
-      queryFn: () => import("@/integrations/supabase/client").then((m) => m.supabase.auth.getSession()),
+      queryFn: () =>
+        import("@/integrations/supabase/client").then((m) => m.supabase.auth.getSession()),
     });
     if (!session) throw redirect({ to: "/auth", search: { next: window.location.pathname } });
   },
   loader: async ({ context, params }) => {
-    const job = await context.queryClient.ensureQueryData(jobQueryOptions(params.id));
+    const country = getCountryBySlug(params.country);
+    if (!country) throw notFound();
+    const job = await context.queryClient.ensureQueryData(jobQueryOptions(params.job));
+    if (!job) throw notFound();
+    if (getCountryForJobCountryValue(job.country)?.slug !== country.slug) throw notFound();
     return job;
   },
   component: ApplyPage,
 });
 
 function ApplyPage() {
-  const { id } = Route.useParams();
-  const { data: job } = useSuspenseQuery(jobQueryOptions(id));
+  const params = Route.useParams();
+  const country = getCountryBySlug(params.country)!;
+  const { data } = useSuspenseQuery(jobQueryOptions(params.job));
+  const job = data!;
   const applyFn = useServerFn(createApplication);
   const [submitted, setSubmitted] = useState(false);
 
@@ -65,7 +89,7 @@ function ApplyPage() {
     formState: { errors, isSubmitting },
   } = useForm<ApplicationInput>({
     resolver: zodResolver(applicationSchema),
-    defaultValues: { job_id: id, applicant_country: "" },
+    defaultValues: { job_id: job.id, applicant_country: "" },
   });
 
   const onSubmit = async (values: ApplicationInput) => {
@@ -108,21 +132,50 @@ function ApplyPage() {
   }
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-16 md:py-24">
-      <Button variant="ghost" size="sm" className="mb-6" asChild>
-        <Link to="/jobs/$id" params={{ id }}>
-          <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to job
-        </Link>
-      </Button>
+    <div className="container mx-auto max-w-2xl px-4 py-14 md:py-20">
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Home</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/jobs">Jobs Opportunities</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/jobs/$country" params={{ country: country.slug }}>
+                {country.name}
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/jobs/$country/$job" params={params}>
+                {job.title}
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Apply</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      <Card>
+      <Card className="mt-8">
         <CardHeader>
           <h1 className="font-display text-2xl font-bold text-foreground">
             Apply for {job.title}
           </h1>
           <p className="text-sm text-muted-foreground">
-            {job.category} &middot; {job.country}
+            Selected job: {job.title} — Country: {job.country}
             {job.location ? `, ${job.location}` : ""}
           </p>
         </CardHeader>

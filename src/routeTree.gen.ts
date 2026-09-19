@@ -24,12 +24,13 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as JobsIndexRouteImport } from './routes/jobs.index'
-import { Route as JobsIdRouteImport } from './routes/jobs.$id'
+import { Route as JobsCountryRouteImport } from './routes/jobs.$country'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as AuthenticatedAdminApplicationsRouteImport } from './routes/_authenticated/admin/applications'
 import { Route as AuthenticatedAdminJobsRouteImport } from './routes/_authenticated/admin/jobs'
 import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin/users'
-import { Route as JobsIdApplyRouteImport } from './routes/jobs.$id.apply'
+import { Route as JobsCountryJobRouteImport } from './routes/jobs.$country.$job'
+import { Route as JobsCountryJobApplyRouteImport } from './routes/jobs.$country.$job.apply'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -105,9 +106,9 @@ const JobsIndexRoute = JobsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => JobsRoute,
 } as any)
-const JobsIdRoute = JobsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
+const JobsCountryRoute = JobsCountryRouteImport.update({
+  id: '/$country',
+  path: '/$country',
   getParentRoute: () => JobsRoute,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
@@ -131,10 +132,15 @@ const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
   path: '/users',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const JobsIdApplyRoute = JobsIdApplyRouteImport.update({
+const JobsCountryJobRoute = JobsCountryJobRouteImport.update({
+  id: '/$job',
+  path: '/$job',
+  getParentRoute: () => JobsCountryRoute,
+} as any)
+const JobsCountryJobApplyRoute = JobsCountryJobApplyRouteImport.update({
   id: '/apply',
   path: '/apply',
-  getParentRoute: () => JobsIdRoute,
+  getParentRoute: () => JobsCountryJobRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -151,13 +157,14 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs/$country': typeof JobsCountryRouteWithChildren
   '/jobs/': typeof JobsIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/jobs/$id/apply': typeof JobsIdApplyRoute
+  '/jobs/$country/$job': typeof JobsCountryJobRouteWithChildren
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/jobs/$country/$job/apply': typeof JobsCountryJobApplyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -171,13 +178,14 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
-  '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs/$country': typeof JobsCountryRouteWithChildren
   '/jobs': typeof JobsIndexRoute
   '/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/jobs/$id/apply': typeof JobsIdApplyRoute
+  '/jobs/$country/$job': typeof JobsCountryJobRouteWithChildren
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/jobs/$country/$job/apply': typeof JobsCountryJobApplyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -195,13 +203,14 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
-  '/jobs/$id': typeof JobsIdRouteWithChildren
+  '/jobs/$country': typeof JobsCountryRouteWithChildren
   '/jobs/': typeof JobsIndexRoute
   '/_authenticated/admin/applications': typeof AuthenticatedAdminApplicationsRoute
   '/_authenticated/admin/jobs': typeof AuthenticatedAdminJobsRoute
   '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
-  '/jobs/$id/apply': typeof JobsIdApplyRoute
+  '/jobs/$country/$job': typeof JobsCountryJobRouteWithChildren
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/jobs/$country/$job/apply': typeof JobsCountryJobApplyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -219,13 +228,14 @@ export interface FileRouteTypes {
     | '/admin'
     | '/dashboard'
     | '/profile'
-    | '/jobs/$id'
+    | '/jobs/$country'
     | '/jobs/'
     | '/admin/applications'
     | '/admin/jobs'
     | '/admin/users'
-    | '/jobs/$id/apply'
+    | '/jobs/$country/$job'
     | '/admin/'
+    | '/jobs/$country/$job/apply'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -239,13 +249,14 @@ export interface FileRouteTypes {
     | '/services'
     | '/dashboard'
     | '/profile'
-    | '/jobs/$id'
+    | '/jobs/$country'
     | '/jobs'
     | '/admin/applications'
     | '/admin/jobs'
     | '/admin/users'
-    | '/jobs/$id/apply'
+    | '/jobs/$country/$job'
     | '/admin'
+    | '/jobs/$country/$job/apply'
   id:
     | '__root__'
     | '/'
@@ -262,13 +273,14 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/_authenticated/profile'
-    | '/jobs/$id'
+    | '/jobs/$country'
     | '/jobs/'
     | '/_authenticated/admin/applications'
     | '/_authenticated/admin/jobs'
     | '/_authenticated/admin/users'
-    | '/jobs/$id/apply'
+    | '/jobs/$country/$job'
     | '/_authenticated/admin/'
+    | '/jobs/$country/$job/apply'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -392,11 +404,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobsIndexRouteImport
       parentRoute: typeof JobsRoute
     }
-    '/jobs/$id': {
-      id: '/jobs/$id'
-      path: '/$id'
-      fullPath: '/jobs/$id'
-      preLoaderRoute: typeof JobsIdRouteImport
+    '/jobs/$country': {
+      id: '/jobs/$country'
+      path: '/$country'
+      fullPath: '/jobs/$country'
+      preLoaderRoute: typeof JobsCountryRouteImport
       parentRoute: typeof JobsRoute
     }
     '/_authenticated/admin/': {
@@ -427,12 +439,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/jobs/$id/apply': {
-      id: '/jobs/$id/apply'
+    '/jobs/$country/$job': {
+      id: '/jobs/$country/$job'
+      path: '/$job'
+      fullPath: '/jobs/$country/$job'
+      preLoaderRoute: typeof JobsCountryJobRouteImport
+      parentRoute: typeof JobsCountryRoute
+    }
+    '/jobs/$country/$job/apply': {
+      id: '/jobs/$country/$job/apply'
       path: '/apply'
-      fullPath: '/jobs/$id/apply'
-      preLoaderRoute: typeof JobsIdApplyRouteImport
-      parentRoute: typeof JobsIdRoute
+      fullPath: '/jobs/$country/$job/apply'
+      preLoaderRoute: typeof JobsCountryJobApplyRouteImport
+      parentRoute: typeof JobsCountryJobRoute
     }
   }
 }
@@ -472,24 +491,37 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface JobsIdRouteChildren {
-  JobsIdApplyRoute: typeof JobsIdApplyRoute
+interface JobsCountryJobRouteChildren {
+  JobsCountryJobApplyRoute: typeof JobsCountryJobApplyRoute
 }
 
-const JobsIdRouteChildren: JobsIdRouteChildren = {
-  JobsIdApplyRoute: JobsIdApplyRoute,
+const JobsCountryJobRouteChildren: JobsCountryJobRouteChildren = {
+  JobsCountryJobApplyRoute: JobsCountryJobApplyRoute,
 }
 
-const JobsIdRouteWithChildren =
-  JobsIdRoute._addFileChildren(JobsIdRouteChildren)
+const JobsCountryJobRouteWithChildren = JobsCountryJobRoute._addFileChildren(
+  JobsCountryJobRouteChildren,
+)
+
+interface JobsCountryRouteChildren {
+  JobsCountryJobRoute: typeof JobsCountryJobRouteWithChildren
+}
+
+const JobsCountryRouteChildren: JobsCountryRouteChildren = {
+  JobsCountryJobRoute: JobsCountryJobRouteWithChildren,
+}
+
+const JobsCountryRouteWithChildren = JobsCountryRoute._addFileChildren(
+  JobsCountryRouteChildren,
+)
 
 interface JobsRouteChildren {
-  JobsIdRoute: typeof JobsIdRouteWithChildren
+  JobsCountryRoute: typeof JobsCountryRouteWithChildren
   JobsIndexRoute: typeof JobsIndexRoute
 }
 
 const JobsRouteChildren: JobsRouteChildren = {
-  JobsIdRoute: JobsIdRouteWithChildren,
+  JobsCountryRoute: JobsCountryRouteWithChildren,
   JobsIndexRoute: JobsIndexRoute,
 }
 

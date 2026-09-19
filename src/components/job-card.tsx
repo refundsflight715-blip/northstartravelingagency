@@ -1,11 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Briefcase, DollarSign, Clock, Users } from "lucide-react";
+import { MapPin, Briefcase, DollarSign, Clock, Users, Building2, CalendarClock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { jobPathParams, formatShortDate } from "@/lib/job-links";
 
 interface Job {
   id: string;
+  slug?: string | null;
   title: string;
   category: string;
   country: string;
@@ -16,6 +18,7 @@ interface Job {
   description?: string | null;
   requirements?: string | null;
   vacancies?: number | null;
+  updated_at?: string | null;
   required_experience?: string | null;
   qualifications?: string | null;
   responsibilities?: string | null;
@@ -29,6 +32,10 @@ interface Job {
 const filled = (value?: string | null) => (value && value.trim() ? value.trim() : null);
 
 export function JobCard({ job }: { job: Job }) {
+  const params = jobPathParams(job);
+  const city = filled(job.location);
+  const lastUpdated = formatShortDate(job.updated_at);
+
   return (
     <Card className="group flex h-full flex-col transition-shadow hover:shadow-md">
       <CardHeader className="pb-3">
@@ -49,8 +56,13 @@ export function JobCard({ job }: { job: Job }) {
           <span className="flex items-center gap-1">
             <MapPin className="h-4 w-4 text-primary" />
             {job.country}
-            {job.location ? `, ${job.location}` : ""}
           </span>
+          {city && (
+            <span className="flex items-center gap-1">
+              <Building2 className="h-4 w-4 text-primary" />
+              {city}
+            </span>
+          )}
           {job.salary && (
             <span className="flex items-center gap-1">
               <DollarSign className="h-4 w-4 text-primary" />
@@ -96,19 +108,28 @@ export function JobCard({ job }: { job: Job }) {
           </p>
         )}
 
-        <div className="mt-auto grid gap-2 pt-4 sm:grid-cols-2">
-          <Button variant="outline" size="sm" className="w-full" asChild>
-            <Link to="/jobs/$id" params={{ id: job.id }}>
-              <Briefcase className="mr-2 h-4 w-4" />
-              View job
-            </Link>
-          </Button>
-          <Button size="sm" className="w-full" asChild>
-            <Link to="/jobs/$id/apply" params={{ id: job.id }}>
-              Apply now
-            </Link>
-          </Button>
-        </div>
+        {lastUpdated && (
+          <p className="flex items-center gap-1 text-xs text-muted-foreground">
+            <CalendarClock className="h-3.5 w-3.5" />
+            Last updated {lastUpdated}
+          </p>
+        )}
+
+        {params && (
+          <div className="mt-auto grid gap-2 pt-4 sm:grid-cols-2">
+            <Button variant="outline" size="sm" className="w-full" asChild>
+              <Link to="/jobs/$country/$job" params={params}>
+                <Briefcase className="mr-2 h-4 w-4" />
+                View job
+              </Link>
+            </Button>
+            <Button size="sm" className="w-full" asChild>
+              <Link to="/jobs/$country/$job/apply" params={params}>
+                Apply now
+              </Link>
+            </Button>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
