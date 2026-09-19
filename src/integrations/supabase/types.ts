@@ -135,6 +135,7 @@ export type Database = {
           requirements: string
           responsibilities: string | null
           salary: string | null
+          slug: string | null
           status: string | null
           title: string
           transport: string | null
@@ -161,6 +162,7 @@ export type Database = {
           requirements: string
           responsibilities?: string | null
           salary?: string | null
+          slug?: string | null
           status?: string | null
           title: string
           transport?: string | null
@@ -187,6 +189,7 @@ export type Database = {
           requirements?: string
           responsibilities?: string | null
           salary?: string | null
+          slug?: string | null
           status?: string | null
           title?: string
           transport?: string | null

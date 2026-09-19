@@ -141,30 +141,62 @@ export const jobCategories = [
   "Other Jobs",
 ];
 
-/** Countries visitors can browse by. Add or remove entries here. */
-export const jobCountries = [
-  "Canada",
-  "Australia",
-  "Netherlands",
-  "Germany",
-  "Luxembourg",
-  "United Kingdom",
-  "Ireland",
-  "France",
-  "Switzerland",
-  "Malta",
-  "UAE / Dubai",
-  "Qatar",
-  "Saudi Arabia",
-  "Oman",
-  "Bahrain",
-  "Kuwait",
-  "Malaysia",
-  "Mauritius",
-  "New Zealand",
-  "Turkey",
-  "Poland",
+export interface JobCountry {
+  slug: string;
+  name: string;
+  /** Every literal value that may appear in a job's country column for this country. */
+  aliases: string[];
+}
+
+/** One entry per country visitors can browse by. Add or remove entries here. */
+export const jobCountryDirectory: JobCountry[] = [
+  { slug: "canada", name: "Canada", aliases: ["Canada"] },
+  { slug: "australia", name: "Australia", aliases: ["Australia"] },
+  { slug: "netherlands", name: "Netherlands", aliases: ["Netherlands", "Holland"] },
+  { slug: "germany", name: "Germany", aliases: ["Germany", "Deutschland"] },
+  { slug: "luxembourg", name: "Luxembourg", aliases: ["Luxembourg"] },
+  {
+    slug: "united-kingdom",
+    name: "United Kingdom",
+    aliases: ["United Kingdom", "UK", "Britain", "Great Britain", "England"],
+  },
+  { slug: "ireland", name: "Ireland", aliases: ["Ireland"] },
+  { slug: "france", name: "France", aliases: ["France"] },
+  { slug: "switzerland", name: "Switzerland", aliases: ["Switzerland"] },
+  { slug: "malta", name: "Malta", aliases: ["Malta"] },
+  {
+    slug: "uae",
+    name: "UAE / Dubai",
+    aliases: ["UAE / Dubai", "UAE", "United Arab Emirates", "Dubai", "Abu Dhabi"],
+  },
+  { slug: "qatar", name: "Qatar", aliases: ["Qatar", "Doha"] },
+  { slug: "saudi-arabia", name: "Saudi Arabia", aliases: ["Saudi Arabia", "KSA", "Riyadh", "Jeddah"] },
+  { slug: "oman", name: "Oman", aliases: ["Oman", "Muscat"] },
+  { slug: "bahrain", name: "Bahrain", aliases: ["Bahrain"] },
+  { slug: "kuwait", name: "Kuwait", aliases: ["Kuwait"] },
+  { slug: "malaysia", name: "Malaysia", aliases: ["Malaysia"] },
+  { slug: "mauritius", name: "Mauritius", aliases: ["Mauritius"] },
+  { slug: "new-zealand", name: "New Zealand", aliases: ["New Zealand"] },
+  { slug: "turkey", name: "Turkey", aliases: ["Turkey", "Türkiye"] },
+  { slug: "poland", name: "Poland", aliases: ["Poland"] },
 ];
+
+/** Countries visitors can browse by, derived from the directory. */
+export const jobCountries = jobCountryDirectory.map((c) => c.name);
+
+export function getCountryBySlug(slug: string): JobCountry | undefined {
+  const target = slug.trim().toLowerCase();
+  return jobCountryDirectory.find((c) => c.slug === target);
+}
+
+export function getCountryForJobCountryValue(countryValue?: string | null): JobCountry | undefined {
+  if (!countryValue) return undefined;
+  const target = countryValue.trim().toLowerCase();
+  if (!target) return undefined;
+  return jobCountryDirectory.find(
+    (c) => c.slug === target || c.aliases.some((a) => a.toLowerCase() === target)
+  );
+}
 
 /** Employment types used on job listings. */
 export const employmentTypes = [
