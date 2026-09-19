@@ -1,8 +1,40 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { jobSchema } from "./schemas";
+import { getCountryBySlug } from "./site";
+
+export function slugifyTitle(value: string) {
+  return (
+    value
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .slice(0, 80) || "job"
+  );
+}
+
+/** Returns a slug unique across the jobs table, appending -2, -3 ... on collisions. */
+async function uniqueJobSlug(
+  client: SupabaseClient<any, any, any>,
+  title: string,
+  ignoreId?: string
+) {
+  const base = slugifyTitle(title);
+  let candidate = base;
+  for (let i = 2; i < 200; i += 1) {
+    let query = client.from("jobs").select("id").eq("slug", candidate).limit(1);
+    if (ignoreId) query = query.neq("id", ignoreId);
+    const { data } = await query;
+    if (!data || data.length === 0) return candidate;
+    candidate = `${base}-${i}`;
+  }
+  return `${base}-${Date.now()}`;
+}
 
 const jobFilterSchema = z.object({
   category: z.string().optional(),
