@@ -97,6 +97,7 @@ export const createJob = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => jobSchema.parse(data))
   .handler(async ({ context, data }) => {
     const insert = {
+      slug: await uniqueJobSlug(context.supabase, data.title),
       title: data.title,
       category: data.category,
       country: data.country,
