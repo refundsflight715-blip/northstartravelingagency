@@ -14,6 +14,7 @@ interface Job {
   location?: string | null;
   salary?: string | null;
   job_type?: string | null;
+  status?: string | null;
   featured?: boolean | null;
   description?: string | null;
   requirements?: string | null;
@@ -37,7 +38,7 @@ export function JobCard({ job }: { job: Job }) {
   const lastUpdated = formatShortDate(job.updated_at);
 
   return (
-    <Card className="group flex h-full flex-col transition-shadow hover:shadow-md">
+    <Card className="group flex h-full flex-col transition-shadow hover:shadow-md overflow-hidden relative">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-2">
           <h3 className="text-lg font-semibold leading-tight text-foreground group-hover:text-primary">
@@ -52,6 +53,12 @@ export function JobCard({ job }: { job: Job }) {
         <p className="text-sm text-muted-foreground">{job.category}</p>
       </CardHeader>
       <CardContent className="flex flex-1 flex-col gap-3">
+        {job.status === "demo" && (
+          <div className="rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
+            DEMO — NOT A VERIFIED VACANCY
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-x-3 gap-y-2 text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <MapPin className="h-4 w-4 text-primary" />
