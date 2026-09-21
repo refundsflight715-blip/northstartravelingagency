@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const jobStatusSchema = z.enum(["draft", "published", "closed"]);
+export const jobStatusSchema = z.enum(["draft", "published", "closed", "demo", "active"]);
 export const applicationStatusSchema = z.enum([
   "new",
   "under_review",
