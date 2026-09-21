@@ -48,7 +48,7 @@ export const getPublishedJobs = createServerFn({ method: "GET" })
     let query = supabase
       .from("jobs")
       .select("*")
-      .eq("status", "published")
+      .in("status", ["published", "active", "demo"])
       .order("featured", { ascending: false })
       .order("posted_at", { ascending: false });
 
@@ -199,7 +199,7 @@ export const getJobsByCountrySlug = createServerFn({ method: "GET" })
     const { data: jobs, error } = await supabase
       .from("jobs")
       .select("*")
-      .eq("status", "published")
+      .in("status", ["published", "active", "demo"])
       .in("country", country.aliases)
       .order("featured", { ascending: false })
       .order("posted_at", { ascending: false });
