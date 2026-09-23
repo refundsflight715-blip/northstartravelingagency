@@ -2,8 +2,11 @@ import { z } from "zod";
 
 export const jobStatusSchema = z.enum(["draft", "published", "closed", "demo", "active"]);
 export const applicationStatusSchema = z.enum([
-  "new",
+  "pending",
   "under_review",
+  "approved",
+  "rejected",
+  "new",
   "interview",
   "documents_required",
   "processing",
@@ -14,12 +17,15 @@ export const applicationStatusLabels: Record<
   z.infer<typeof applicationStatusSchema>,
   string
 > = {
-  new: "New",
+  pending: "Pending",
   under_review: "Under Review",
-  interview: "Interview",
-  documents_required: "Documents Required",
-  processing: "Processing",
-  completed: "Completed",
+  approved: "Approved",
+  rejected: "Rejected",
+  new: "Pending",
+  interview: "Under Review",
+  documents_required: "Under Review",
+  processing: "Under Review",
+  completed: "Approved",
 };
 export const appRoleSchema = z.enum(["candidate", "employer", "admin"]);
 
@@ -52,7 +58,16 @@ export const applicationSchema = z.object({
   applicant_email: z.string().trim().email("Valid email is required").max(255),
   applicant_phone: z.string().trim().min(6, "Phone number is required").max(30),
   applicant_country: z.string().trim().min(2, "Country of residence is required").max(80),
+  nationality: z.string().trim().min(2, "Nationality is required").max(80).optional(),
+  date_of_birth: z.string().optional(),
+  country_of_interest: z.string().trim().optional(),
+  job_category: z.string().trim().optional(),
+  passport_status: z.string().trim().optional(),
+  qualifications: z.string().trim().optional(),
+  work_experience: z.string().trim().optional(),
+  cv_url: z.string().optional(),
   cover_letter: z.string().trim().min(10, "Please write at least 10 characters").max(4000),
+  additional_notes: z.string().trim().optional(),
 });
 
 export const applicationStatusUpdateSchema = z.object({

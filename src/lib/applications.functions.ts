@@ -51,7 +51,15 @@ export const createApplication = createServerFn({ method: "POST" })
         applicant_email: data.applicant_email,
         applicant_phone: data.applicant_phone,
         applicant_country: data.applicant_country,
-        status: "new",
+        nationality: data.nationality ?? data.applicant_country,
+        date_of_birth: data.date_of_birth ?? null,
+        country_of_interest: data.country_of_interest ?? null,
+        job_category: data.job_category ?? null,
+        passport_status: data.passport_status ?? null,
+        qualifications: data.qualifications ?? null,
+        work_experience: data.work_experience ?? null,
+        cv_url: data.cv_url ?? null,
+        status: "pending",
       })
       .select()
       .single();
