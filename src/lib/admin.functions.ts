@@ -6,31 +6,53 @@ import { appRoleSchema } from "./schemas";
 export const getAdminStats = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { count: jobsCount, error: jobsError } = await context.supabase
+    const { count: jobsCount } = await context.supabase
       .from("jobs")
       .select("*", { count: "exact", head: true });
-    const { count: applicationsCount, error: applicationsError } = await context.supabase
+
+    const { count: totalApplications } = await context.supabase
       .from("applications")
       .select("*", { count: "exact", head: true });
-    const { count: usersCount, error: usersError } = await context.supabase
+
+    const { count: pendingCount } = await context.supabase
+      .from("applications")
+      .select("*", { count: "exact", head: true })
+      .in("status", ["pending", "new"]);
+
+    const { count: underReviewCount } = await context.supabase
+      .from("applications")
+      .select("*", { count: "exact", head: true })
+      .in("status", ["under_review", "interview", "documents_required", "processing"]);
+
+    const { count: approvedCount } = await context.supabase
+      .from("applications")
+      .select("*", { count: "exact", head: true })
+      .in("status", ["approved", "completed"]);
+
+    const { count: rejectedCount } = await context.supabase
+      .from("applications")
+      .select("*", { count: "exact", head: true })
+      .eq("status", "rejected");
+
+    const { count: usersCount } = await context.supabase
       .from("profiles")
       .select("*", { count: "exact", head: true });
 
-    const { data: recentApplications, error: recentError } = await context.supabase
+    const { data: recentApplications } = await context.supabase
       .from("applications")
-      .select("status")
+      .select("id, applicant_name, applicant_country, country_of_interest, job_category, status, created_at")
       .order("created_at", { ascending: false })
-      .limit(30);
-
-    if (jobsError || applicationsError || usersError || recentError) {
-      throw new Error("Failed to load dashboard stats.");
-    }
+      .limit(10);
 
     return {
       jobs: jobsCount ?? 0,
-      applications: applicationsCount ?? 0,
+      totalApplications: totalApplications ?? 0,
+      pendingApplications: pendingCount ?? 0,
+      underReviewApplications: underReviewCount ?? 0,
+      approvedApplications: approvedCount ?? 0,
+      rejectedApplications: rejectedCount ?? 0,
       users: usersCount ?? 0,
-      recentStatuses: recentApplications ?? [],
+      recentApplications: recentApplications ?? [],
     };
   });
 
